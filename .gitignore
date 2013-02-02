@@ -1,0 +1,16 @@
+.DS_Store
+*.swp
+*.un~
+*.*~
+*.settings
+*.classpath
+*.project
+.idea
+lantern_getexceptional.txt
+nbactions.xml
+dependency-reduced-pom.xml
+.sass-cache
+/Lantern
+log.txt*
+target/
+
