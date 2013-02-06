@@ -10,10 +10,10 @@ import org.lantern.exceptional4j.ExceptionalUtils;
  * Constants for Lantern.
  */
 public class LanternConstants {
-    
+
     public static final String FALLBACK_SERVER_HOST;
     public static final String FALLBACK_SERVER_PORT;
-    
+
     static {
         final String host = "fallback_server_host_tok";
         final String port = "fallback_server_port_tok";
@@ -22,26 +22,26 @@ public class LanternConstants {
     }
     public static final String FALLBACK_SERVER_USER = "fallback_server_user_tok";
     public static final String FALLBACK_SERVER_PASS = "fallback_server_pass_tok";
-    
-    public static final File GEOIP = 
+
+    public static final File GEOIP =
             new File(LanternConstants.DATA_DIR, "GeoIP.dat");
-    
+
     public static final long START_TIME = System.currentTimeMillis();
 
     public static final int DASHCACHE_MAXAGE = 60 * 5;
-    
+
     /**
      * This is the version of Lantern we're running. This is automatically
      * replaced when we push new releases.
      */
     public static final String VERSION = "lantern_version_tok";
-    
+
     public static final String API_VERSION = "0.0.1";
-    
+
     public static final String BUILD_TIME = "build_time_tok";
-    
+
     public static final String UNCENSORED_ID = "-lan-";
-    
+
     /**
      * We make range requests of the form "bytes=x-y" where
      * y <= x + CHUNK_SIZE
@@ -55,27 +55,27 @@ public class LanternConstants {
      * This currently corresponds to laeproxy's RANGE_REQ_SIZE of 2000000.
      */
     public static final long CHUNK_SIZE = 2000000 - 1;
-    
-    public static final String GET_EXCEPTIONAL_API_KEY = 
+
+    public static final String GET_EXCEPTIONAL_API_KEY =
         ExceptionalUtils.NO_OP_KEY;
-    
+
     //public static final String LANTERN_JID = "lantern-controller@appspot.com";
     public static final String LANTERN_JID = "lanternctrl@appspot.com";
-    
-   
+    public static final String STATS_URL = "http://lanternctrl.appspot.com/stats";
+
     public static final String VERSION_KEY = "v";
-    
+
     public static final int LANTERN_LOCALHOST_HTTP_PORT = 8787;
-    
+
     public static final String USER_NAME = "un";
     public static final String PASSWORD = "pwd";
-    
+
     public static final String DIRECT_BYTES = "db";
     public static final String BYTES_PROXIED = "bp";
-    
+
     public static final String REQUESTS_PROXIED = "rp";
     public static final String DIRECT_REQUESTS = "dr";
-    
+
     public static final String MACHINE_ID = "m";
     public static final String COUNTRY_CODE = "cc";
     public static final String WHITELIST_ADDITIONS = "wa";
@@ -83,83 +83,83 @@ public class LanternConstants {
     public static final String SERVERS = "s";
     public static final String UPDATE_TIME = "ut";
     public static final String ROSTER = "roster";
-    
-    
+
+
     /**
      * The following are keys in the properties files.
      */
     public static final String FORCE_CENSORED = "forceCensored";
-    
+
     /**
      * The key for the update JSON object.
      */
     public static final String UPDATE_KEY = "uk";
-    
+
     public static final String UPDATE_VERSION_KEY = "number";
 
     public static final String UPDATE_URL_KEY = "url";
-    
+
     public static final String UPDATE_MESSAGE_KEY = "message";
-    
+
     public static final String UPDATE_RELEASED_KEY = "released";
 
     public static final String INVITES_KEY = "invites";
-    
+
     public static final String INVITED_EMAIL = "invem";
-    
+
     public static final String INVITEE_NAME = "inv_name";
-    
+
     public static final String INVITER_NAME = "invr_name";
 
     public static final String INVITER_REFRESH_TOKEN = "invr_refrtok";
-    
+
     public static final String INVITED = "invd";
-    
+
     /**
      * The length of keys in translation property files.
      */
     public static final int I18N_KEY_LENGTH = 40;
-    
+
     /**
      * Plist file for launchd on OSX.
      */
     public static final File LAUNCHD_PLIST =
         new File(System.getProperty("user.home"), "Library/LaunchAgents/org.lantern.plist");
-    
+
     /**
      * Configuration file for starting at login on Gnome.
      */
     public static final File GNOME_AUTOSTART =
-        new File(System.getProperty("user.home"), 
+        new File(System.getProperty("user.home"),
             ".config/autostart/lantern-autostart.desktop");
 
     public static final String CONNECT_ON_LAUNCH = "connectOnLaunch";
 
     public static final String START_AT_LOGIN = "startAtLogin";
 
-    public static final File CONFIG_DIR = 
+    public static final File CONFIG_DIR =
         new File(System.getProperty("user.home"), ".lantern");
-    
-    public static final File DEFAULT_MODEL_FILE = 
+
+    public static final File DEFAULT_MODEL_FILE =
             new File(CONFIG_DIR, "model");
-    
-    public static final File TEST_PROPS = 
+
+    public static final File TEST_PROPS =
             new File(CONFIG_DIR, "test.properties");
 
-    
+
     /**
      * Note that we don't include the "X-" for experimental headers here. See:
      * the draft that appears likely to become an RFC at:
-     * 
+     *
      * http://tools.ietf.org/html/draft-ietf-appsawg-xdash
      */
-    public static final String LANTERN_VERSION_HTTP_HEADER_NAME = 
+    public static final String LANTERN_VERSION_HTTP_HEADER_NAME =
         "Lantern-Version";
-    
+
     public static final String LANTERN_VERSION_HTTP_HEADER_VALUE = VERSION;
-    
+
     public static File DATA_DIR;
-    
+
     public static File LOG_DIR;
 
     public static final boolean ON_APP_ENGINE;
@@ -182,7 +182,7 @@ public class LanternConstants {
                 DATA_DIR = new File(System.getenv("APPDATA"), "Lantern");
                 LOG_DIR = new File(DATA_DIR, "logs");
             } else if (SystemUtils.IS_OS_MAC_OSX) {
-                final File homeLibrary = 
+                final File homeLibrary =
                     new File(System.getProperty("user.home"), "Library");
                 DATA_DIR = CONFIG_DIR;//new File(homeLibrary, "Logs");
                 final File allLogsDir = new File(homeLibrary, "Logs");
@@ -212,7 +212,7 @@ public class LanternConstants {
 
             tempAppEngine = false;
         }
-        
+
         ON_APP_ENGINE = tempAppEngine;
     }
 }
