@@ -11,6 +11,13 @@
     Lantern is a peer-to-peer and trust-network-based tool for circumventing censors and preventing monitoring.
   </description>
   <url>https://github.com/getlantern/lantern-common</url>
+  <licenses>
+  <license>
+    <name>The GNU General Public License Version 3 (or later)</name>
+    <url>http://www.gnu.org/licenses/gpl.html</url>
+    <distribution>repo</distribution>
+  </license>
+  </licenses>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -37,6 +44,16 @@
     <developerConnection>scm:git@github.com:getlantern/lantern-common.git</developerConnection>
   </scm>
 
+  <developers>
+    <developer>
+      <id>bns-anon</id>
+      <name>Brave New Software</name>
+      <email>contact@bravenewsoftware.org</email>
+      <url>http://www.bravenewsoftware.org</url>
+      <organization>Brave New Software</organization>
+      <organizationUrl>http://www.bravenewsoftware.org</organizationUrl>
+    </developer>
+  </developers>
 
   <dependencies>
     <dependency>
@@ -203,7 +220,28 @@
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-javadoc-plugin</artifactId>
               <version>2.7</version>
+	      <executions>
+		<execution>
+		  <id>attach-javadocs</id>
+		  <goals>
+		    <goal>jar</goal>
+		  </goals>
+		</execution>
+	      </executions>
             </plugin>
+	    <plugin>
+	      <groupId>org.apache.maven.plugins</groupId>
+	      <artifactId>maven-source-plugin</artifactId>
+              <version>2.2.1</version>
+	      <executions>
+		<execution>
+		  <id>attach-sources</id>
+		  <goals>
+		    <goal>jar</goal>
+		  </goals>
+		</execution>
+	      </executions>
+	    </plugin>
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-surefire-report-plugin</artifactId>
@@ -325,4 +363,12 @@
       </snapshots>
     </repository>
   </repositories>
+
+  <distributionManagement>
+    <repository>
+      <id>sonatype</id>
+      <name>Sonatype</name>
+      <url>https://oss.sonatype.org/content/repositories/deploy/maven2</url>
+    </repository>
+  </distributionManagement>
 </project>
