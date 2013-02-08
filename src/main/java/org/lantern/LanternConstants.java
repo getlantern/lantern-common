@@ -3,7 +3,7 @@ package org.lantern;
 import java.io.File;
 import java.nio.charset.Charset;
 
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.lantern.exceptional4j.ExceptionalUtils;
 
 /**
