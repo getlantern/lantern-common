@@ -46,8 +46,8 @@
 
   <scm>
     <url>https://github.com/getlantern/lantern-common</url>
-    <connection>scm:git://github.com/getlantern/lantern-common.git</connection>
-    <developerConnection>scm:git@github.com:getlantern/lantern-common.git</developerConnection>
+    <connection>scm:git:git@github.com:getlantern/lantern-common.git</connection>
+    <developerConnection>scm:git:git@github.com:getlantern/lantern-common.git</developerConnection>
   </scm>
 
   <developers>
