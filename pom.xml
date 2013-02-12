@@ -2,7 +2,7 @@
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.lantern</groupId>
+  <groupId>org.getlantern</groupId>
   <artifactId>lantern-common</artifactId>
   <packaging>jar</packaging>
   <version>0.1-SNAPSHOT</version>
@@ -10,6 +10,7 @@
   <description>
     Lantern is a peer-to-peer and trust-network-based tool for circumventing censors and preventing monitoring.
   </description>
+
   <url>https://github.com/getlantern/lantern-common</url>
   <licenses>
   <license>
@@ -19,18 +20,16 @@
   </license>
   </licenses>
 
-    <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>7</version>
-    </parent>
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <slf4j.version>1.7.2</slf4j.version>
-    <github.global.server>github</github.global.server>
-    <!--<cometd.version>2.4.1</cometd.version>-->
   </properties>
 
   <organization>
@@ -60,7 +59,6 @@
       <organizationUrl>http://www.bravenewsoftware.org</organizationUrl>
     </developer>
   </developers>
-
   <dependencies>
     <dependency>
       <groupId>com.google.inject</groupId>
@@ -154,26 +152,21 @@
     <defaultGoal>install</defaultGoal>
 
     <plugins>
-<!--
       <plugin>
-        <groupId>com.github.github</groupId>
-        <artifactId>downloads-maven-plugin</artifactId>
-        <version>0.4</version>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.0</version>
         <configuration>
-          <description>Official ${project.name} build of the ${project.version} release</description>
-          <override>true</override>
-          <includeAttached>true</includeAttached>
+          <source>1.6</source>
+          <target>1.6</target>
+          <encoding>UTF-8</encoding>
+          <!-- The following forces compilation with full warnings. -->
+          <fork>true</fork>
+          <showWarnings>true</showWarnings>
+          <showDeprecation>true</showDeprecation>
+          <compilerArguments><Xlint/></compilerArguments>
         </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>upload</goal>
-            </goals>
-            <phase>install</phase>
-          </execution>
-        </executions>
       </plugin>
--->
 
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -197,6 +190,7 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
@@ -296,42 +290,41 @@
           </reportPlugins>
         </configuration>
       </plugin>
-
       <plugin>
-	<groupId>org.apache.maven.plugins</groupId>
-	<artifactId>maven-javadoc-plugin</artifactId>
-	<version>2.9</version>
-	<executions>
-	  <execution>
-	    <id>attach-javadocs</id>
-	    <phase>deploy</phase>
-	    <goals>
-	      <goal>jar</goal>
-	    </goals>
-	  </execution>
-	</executions>
-	<configuration>
-	  <source>1.6</source>
-	  <failOnError>true</failOnError>
-	  <quiet>true</quiet>
-	  <links>
-	    <link>http://download.oracle.com/javase/6/docs/api/</link>
-	  </links>
-	</configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.9</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <source>1.6</source>
+          <failOnError>true</failOnError>
+          <quiet>true</quiet>
+          <links>
+            <link>http://download.oracle.com/javase/6/docs/api/</link>
+          </links>
+        </configuration>
       </plugin>
       <plugin>
-	<groupId>org.apache.maven.plugins</groupId>
-	<artifactId>maven-source-plugin</artifactId>
-	<version>2.2.1</version>
-	<executions>
-	  <execution>
-	    <phase>deploy</phase>
-	    <id>attach-sources</id>
-	    <goals>
-	      <goal>jar-no-fork</goal>
-	    </goals>
-	  </execution>
-	</executions>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.2.1</version>
+        <executions>
+          <execution>
+            <phase>deploy</phase>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <!-- explicitly define maven-deploy-plugin after other to force exec order -->
@@ -361,49 +354,7 @@
           <compilerArguments><Xlint/></compilerArguments>
         </configuration>
       </plugin>
-
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-shade-plugin</artifactId>
-        <version>2.0</version>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>shade</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-	<groupId>org.apache.maven.plugins</groupId>
-	<artifactId>maven-gpg-plugin</artifactId>
-	<version>1.1</version>
-	<executions>
-	  <execution>
-	    <id>sign-artifacts</id>
-	    <phase>verify</phase>
-	    <goals>
-	      <goal>sign</goal>
-	    </goals>
-	  </execution>
-	</executions>
-      </plugin>
-
-      <plugin>
-	<groupId>org.apache.maven.plugins</groupId>
-	<artifactId>maven-release-plugin</artifactId>
-	<configuration>
-	  <autoVersionSubmodules>true</autoVersionSubmodules>
-	  <useReleaseProfile>false</useReleaseProfile>
-	  <releaseProfiles>release</releaseProfiles>
-	  <arguments>-Psonatype-oss-release -Prelease -Dgpg.passphrase=${gpg.passphrase}</arguments>
-	</configuration>
-      </plugin>
     </plugins>
-
   </build>
 
   <repositories>
@@ -411,17 +362,13 @@
       <id>sonatype-nexus-snapshots</id>
       <name>Sonatype Nexus Snapshots</name>
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
     </repository>
   </repositories>
-  <distributionManagement>
-    <repository>
-      <id>sonatype-nexus-releases</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-    </repository>
-    <snapshotRepository>
-      <id>sonatype-nexus-snapshots</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-  </distributionManagement>
 
 </project>
