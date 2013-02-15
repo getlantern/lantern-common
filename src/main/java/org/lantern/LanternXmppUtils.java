@@ -1,5 +1,8 @@
 package org.lantern;
 
+import org.apache.commons.lang3.StringUtils;
+
+
 public class LanternXmppUtils {
 
     public static String jidToUserId(final String fullId) {
@@ -23,4 +26,10 @@ public class LanternXmppUtils {
         return false;
     }
 
+    public static String jidToEmail(final String jid) {
+        if (jid.contains("/")) {
+            return StringUtils.substringBefore(jid, "/");
+        }
+        return jid;
+    }
 }
