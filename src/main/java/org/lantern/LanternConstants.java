@@ -145,6 +145,9 @@ public class LanternConstants {
 
     public static final File TEST_PROPS =
             new File(CONFIG_DIR, "test.properties");
+    
+    public static final File TEST_PROPS2 =
+            new File(SystemUtils.USER_DIR, "src/test/resources/test.properties");
 
 
     /**
