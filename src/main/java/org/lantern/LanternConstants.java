@@ -29,8 +29,6 @@ public class LanternConstants {
      */
     public static final long CHUNK_SIZE = 2000000 - 1;
 
-    //public static final String LANTERN_JID = "lantern-controller@appspot.com";
-    public static final String LANTERN_JID = "lanternctrl@appspot.com";
     public static final String STATS_URL = "http://lanternctrl.appspot.com/stats";
 
     public static final String VERSION_KEY = "v";

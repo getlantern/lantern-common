@@ -6,16 +6,15 @@ import org.apache.commons.lang3.StringUtils;
 public class LanternXmppUtils {
 
     public static String jidToUserId(final String fullId) {
-        return fullId.split("/")[0];
+        if (fullId.contains("/")) {
+            return fullId.split("/")[0];
+        } else {
+            return fullId;
+        }
     }
 
     public static String jidToInstanceId(final String fullId) {
-        return fullId.split("/")[1];
-    }
-
-    public static boolean isLanternHub(final String jabberid) {
-        final String userid = jidToUserId(jabberid);
-        return LanternConstants.LANTERN_JID.equals(userid);
+        return fullId.split("/", 2)[1];
     }
 
     public static boolean isLanternJid(final String from) {
