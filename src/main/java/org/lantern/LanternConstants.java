@@ -108,8 +108,6 @@ public class LanternConstants {
     public static final String KSCOPE_ADVERTISEMENT_KEY = "ksak";
 
     public static final Charset UTF8 = Charset.forName("UTF8");
-
-    public static final String MODE_CHANGE_TOKEN = "mode_change";
     static {
         boolean tempAppEngine;
         try {
