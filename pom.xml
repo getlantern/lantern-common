@@ -3,7 +3,7 @@
   <groupId>org.getlantern</groupId>
   <artifactId>lantern-common</artifactId>
   <packaging>jar</packaging>
-  <version>0.2-SNAPSHOT</version>
+  <version>0.1-SNAPSHOT</version>
   <name>Lantern common stuff</name>
   <description>
     Lantern is a peer-to-peer and trust-network-based tool for circumventing censors and preventing monitoring.
@@ -150,6 +150,7 @@
     <defaultGoal>install</defaultGoal>
 
     <plugins>
+<!--
       <plugin>
         <groupId>org.sonatype.plugins</groupId>
         <artifactId>nexus-staging-maven-plugin</artifactId>
@@ -157,10 +158,10 @@
         <extensions>true</extensions>
         <configuration>
           <serverId>sonatype-nexus-staging</serverId>
-          <!--<nexusUrl>http://localhost:8081/nexus/</nexusUrl>-->
           <nexusUrl>https://oss.sonatype.org/</nexusUrl>
         </configuration>
       </plugin>
+-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
