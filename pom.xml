@@ -3,7 +3,7 @@
   <groupId>org.getlantern</groupId>
   <artifactId>lantern-common</artifactId>
   <packaging>jar</packaging>
-  <version>0.2-SNAPSHOT</version>
+  <version>0.1-SNAPSHOT</version>
   <name>Lantern common stuff</name>
   <description>
     Lantern is a peer-to-peer and trust-network-based tool for circumventing censors and preventing monitoring.
@@ -156,8 +156,9 @@
         <version>1.2</version>
         <extensions>true</extensions>
         <configuration>
-          <serverId>local-nexus</serverId>
-          <nexusUrl>http://localhost:8081/nexus/</nexusUrl>
+          <serverId>sonatype-nexus-staging</serverId>
+          <!--<nexusUrl>http://localhost:8081/nexus/</nexusUrl>-->
+          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
         </configuration>
       </plugin>
       <plugin>
