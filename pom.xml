@@ -153,6 +153,16 @@
 
     <plugins>
       <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.2</version>
+        <extensions>true</extensions>
+        <configuration>
+          <serverId>local-nexus</serverId>
+          <nexusUrl>http://localhost:8081/nexus/</nexusUrl>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.0</version>
