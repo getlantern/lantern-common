@@ -122,7 +122,10 @@ public class Friend implements Serializable {
     }
 
     public boolean shouldNotifyAgain() {
-        long now = System.currentTimeMillis();
-        return nextQuery < now;
+        if (status == null || status == Status.requested) {
+            long now = System.currentTimeMillis();
+            return nextQuery < now;
+        }
+        return false;
     }
 }
