@@ -98,6 +98,10 @@ public class LanternConstants {
 
     public static final String START_AT_LOGIN = "startAtLogin";
 
+    public static final String FRIENDS = "friends";
+
+    public static final String FRIEND = "friend";
+
 
     /**
      * Note that we don't include the "X-" for experimental headers here. See:
@@ -114,6 +118,7 @@ public class LanternConstants {
     public static final String KSCOPE_ADVERTISEMENT_KEY = "ksak";
 
     public static final Charset UTF8 = Charset.forName("UTF8");
+
     static {
         boolean tempAppEngine;
         try {
