@@ -82,9 +82,12 @@ public class Friends implements Serializable {
         if (friend == null) {
             friend = new Friend(email);
             friends.put(email, friend);
+            needsSync = true;
         }
-        friend.setPendingSubscriptionRequest(true);
-        needsSync = true;
+        if (!friend.isPendingSubscriptionRequest()) {
+            friend.setPendingSubscriptionRequest(true);
+            needsSync = true;
+        }
     }
 
     public Friend get(String email) {

@@ -115,6 +115,9 @@ public class Friend implements Serializable {
 
     public void setPendingSubscriptionRequest(boolean pending) {
         pendingSubscriptionRequest = pending;
+        if (status == null) {
+            status = Status.requested;
+        }
     }
 
     public boolean isPendingSubscriptionRequest() {
@@ -127,5 +130,10 @@ public class Friend implements Serializable {
             return nextQuery < now;
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Friend(" + email + ")";
     }
 }
