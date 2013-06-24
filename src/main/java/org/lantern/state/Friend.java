@@ -15,10 +15,10 @@ public class Friend implements Serializable {
     public enum Status {
         friend,
         rejected,
-        requested //they have requested that we become a friend
+        pending //everything else
     }
 
-    private Status status;
+    private Status status = Status.pending;
 
     /**
      * The last time the status was updated by a user action or request, in
@@ -115,9 +115,6 @@ public class Friend implements Serializable {
 
     public void setPendingSubscriptionRequest(boolean pending) {
         pendingSubscriptionRequest = pending;
-        if (status == null) {
-            status = Status.requested;
-        }
     }
 
     public boolean isPendingSubscriptionRequest() {
@@ -125,7 +122,7 @@ public class Friend implements Serializable {
     }
 
     public boolean shouldNotifyAgain() {
-        if (status == null || status == Status.requested) {
+        if (status == Status.pending) {
             long now = System.currentTimeMillis();
             return nextQuery < now;
         }
