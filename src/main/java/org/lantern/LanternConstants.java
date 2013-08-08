@@ -79,6 +79,7 @@ public class LanternConstants {
 
     public static final String INVITER_NAME = "invr_name";
 
+    // Transitioning out; newer clients will use REFRESH_TOKEN...
     public static final String INVITER_REFRESH_TOKEN = "invr_refrtok";
 
     public static final String INVITED = "invd";
@@ -88,6 +89,11 @@ public class LanternConstants {
     public static final String FAILED_INVITES_KEY = "failed_invites";
 
     public static final String INVITE_FAILED_REASON = "reason";
+
+    public static final String NEED_REFRESH_TOKEN = "need_refrtok";
+
+    // Old value kept around for compatibility with old clients.
+    public static final String REFRESH_TOKEN = INVITER_REFRESH_TOKEN;
 
     /**
      * The length of keys in translation property files.
