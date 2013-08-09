@@ -13,7 +13,13 @@ public class LanternXmppUtils {
         }
     }
 
+    /** This is misspelled -- use jidToResourceId */
+    @Deprecated
     public static String jidToInstanceId(final String fullId) {
+        return fullId.split("/", 2)[1];
+    }
+
+    public static String jidToResourceId(final String fullId) {
         return fullId.split("/", 2)[1];
     }
 
