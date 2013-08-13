@@ -34,6 +34,7 @@ public class LanternConstants {
     public static final String VERSION_KEY = "v";
 
     public static final String OS_KEY = "os";
+    public static final String ARCH_KEY = "ar";
 
     public static final int LANTERN_LOCALHOST_HTTP_PORT = 8787;
 
