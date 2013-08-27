@@ -111,6 +111,11 @@ public class LanternConstants {
 
     public static final String FRIEND = "friend";
 
+    public static final String FRIENDED_BY_LAST_UPDATED = "fblu";
+
+    public static final String FRIENDED_BY = "fb";
+
+    public static final String UNFRIENDED_BY = "ufb";
 
     /**
      * Note that we don't include the "X-" for experimental headers here. See:
