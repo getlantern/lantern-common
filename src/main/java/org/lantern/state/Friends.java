@@ -62,7 +62,7 @@ public class Friends implements Serializable {
     }
 
     public void remove(final String email) {
-        friends.remove(email);
+        friends.remove(email.toLowerCase());
         needsSync = true;
     }
 
@@ -78,6 +78,7 @@ public class Friends implements Serializable {
 
     @JsonIgnore
     public void setPendingSubscriptionRequest(String email) {
+        email = email.toLowerCase();
         Friend friend = friends.get(email);
         if (friend == null) {
             friend = new Friend(email);
@@ -91,7 +92,7 @@ public class Friends implements Serializable {
     }
 
     public Friend get(String email) {
-        return friends.get(email);
+        return friends.get(email.toLowerCase());
     }
 
     public boolean needsSync() {
@@ -105,6 +106,7 @@ public class Friends implements Serializable {
 
     @JsonIgnore
     public void setStatus(String email, Status status) {
+        email = email.toLowerCase();
         Friend friend = friends.get(email);
         if (friend.getStatus() != Status.friend) {
             friend.setStatus(status);
