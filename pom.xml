@@ -3,7 +3,7 @@
   <groupId>org.getlantern</groupId>
   <artifactId>lantern-common</artifactId>
   <packaging>jar</packaging>
-  <version>0.0.15-SNAPSHOT</version>
+  <version>0.0.14-SNAPSHOT</version>
   <name>Lantern common stuff</name>
   <description>
     Lantern is a peer-to-peer and trust-network-based tool for circumventing censors and preventing monitoring.
