@@ -76,21 +76,6 @@ public class Friends implements Serializable {
         friends.clear();
     }
 
-    @JsonIgnore
-    public void setPendingSubscriptionRequest(String email) {
-        email = email.toLowerCase();
-        Friend friend = friends.get(email);
-        if (friend == null) {
-            friend = new Friend(email);
-            friends.put(email, friend);
-            needsSync = true;
-        }
-        if (!friend.isPendingSubscriptionRequest()) {
-            friend.setPendingSubscriptionRequest(true);
-            needsSync = true;
-        }
-    }
-
     public Friend get(String email) {
         return friends.get(email.toLowerCase());
     }
