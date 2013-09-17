@@ -1,6 +1,7 @@
 package org.lantern;
 
 
+
 public interface Stats {
 
     long getUptime();
@@ -56,5 +57,13 @@ public interface Stats {
     String getCountryCode();
 
     String getVersion();
+    
+    double getCpuUtilization();
+    
+    double getLoadAverage();
+    
+    double getMemoryUsageInBytes();
+    
+    double getNumberOfOpenFileDescriptors();
 
 }
