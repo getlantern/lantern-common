@@ -23,10 +23,6 @@ public interface Friend {
 
     void setEmail(String email);
 
-    String getName();
-
-    void setName(String name);
-    
     Status getStatus();
 
     void setStatus(Status status);
