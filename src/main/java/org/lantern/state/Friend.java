@@ -31,12 +31,6 @@ public interface Friend {
 
     void setStatus(Status status);
     
-    void setPendingSubscriptionRequest(boolean pending);
-    
-    boolean shouldNotifyAgain();
-
-    boolean isPendingSubscriptionRequest();
-    
     long getNextQuery();
 
     void setNextQuery(long nextQuery);
