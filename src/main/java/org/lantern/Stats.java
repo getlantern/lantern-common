@@ -58,12 +58,14 @@ public interface Stats {
 
     String getVersion();
     
-    double getCpuUtilization();
+    double getProcessCpuUsage();
     
-    double getLoadAverage();
+    double getSystemCpuUsage();
+    
+    double getSystemLoadAverage();
     
     double getMemoryUsageInBytes();
     
-    double getNumberOfOpenFileDescriptors();
+    long getNumberOfOpenFileDescriptors();
 
 }
