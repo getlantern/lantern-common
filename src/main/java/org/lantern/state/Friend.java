@@ -23,14 +23,14 @@ public interface Friend {
 
     void setEmail(String email);
 
+    String getName();
+
+    void setName(String name);
+    
     Status getStatus();
 
     void setStatus(Status status);
     
-    long getNextQuery();
-
-    void setNextQuery(long nextQuery);
-
     void setLastUpdated(long lastUpdated);
     
     long getLastUpdated();
