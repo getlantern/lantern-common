@@ -57,15 +57,5 @@ public interface Stats {
     String getCountryCode();
 
     String getVersion();
-    
-    double getProcessCpuUsage();
-    
-    double getSystemCpuUsage();
-    
-    double getSystemLoadAverage();
-    
-    double getMemoryUsageInBytes();
-    
-    long getNumberOfOpenFileDescriptors();
 
 }
