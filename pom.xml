@@ -157,7 +157,7 @@
     
     <testResources>
       <testResource>
-        <directory>lantern-common/src/main/resources</directory>
+        <directory>lantern-common/src/test/resources</directory>
       </testResource> 
     </testResources>
 
