@@ -105,6 +105,8 @@ public class LanternConstants {
     public static final String NEED_FALLBACK_ADDRESS = "need_fallback_address";
     
     public static final String FALLBACK_ADDRESS = "fallback_address";
+    
+    public static final String IS_FALLBACK_PROXY = "is_fallback_proxy";
 
     /**
      * The length of keys in translation property files.
