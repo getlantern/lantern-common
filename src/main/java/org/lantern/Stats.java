@@ -1,7 +1,8 @@
 package org.lantern;
 
+import com.google.appengine.repackaged.org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public interface Stats {
 
     long getUptime();
