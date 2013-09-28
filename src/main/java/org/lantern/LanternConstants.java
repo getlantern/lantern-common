@@ -94,9 +94,17 @@ public class LanternConstants {
     public static final String INVITE_FAILED_REASON = "reason";
 
     public static final String NEED_REFRESH_TOKEN = "need_refrtok";
-
+    
     // Old value kept around for compatibility with old clients.
     public static final String REFRESH_TOKEN = INVITER_REFRESH_TOKEN;
+    
+    public static final String NEED_ADDRESS = "need_address";
+    
+    public static final String ADDRESS = "address";
+    
+    public static final String NEED_FALLBACK_ADDRESS = "need_fallback_address";
+    
+    public static final String FALLBACK_ADDRESS = "fallback_address";
 
     /**
      * The length of keys in translation property files.
