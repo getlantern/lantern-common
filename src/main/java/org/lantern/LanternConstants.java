@@ -98,7 +98,7 @@ public class LanternConstants {
     // Old value kept around for compatibility with old clients.
     public static final String REFRESH_TOKEN = INVITER_REFRESH_TOKEN;
     
-    public static final String HOST_AND_PORT = "address";
+    public static final String HOST_AND_PORT = "host_and_port";
     
     public static final String FALLBACK_HOST_AND_PORT = "fallback_host_and_port";
     
