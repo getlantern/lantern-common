@@ -98,13 +98,13 @@ public class LanternConstants {
     // Old value kept around for compatibility with old clients.
     public static final String REFRESH_TOKEN = INVITER_REFRESH_TOKEN;
     
-    public static final String NEED_ADDRESS = "need_address";
+    public static final String NEED_HOST_AND_PORT = "need_host_and_port";
     
     public static final String ADDRESS = "address";
     
-    public static final String NEED_FALLBACK_ADDRESS = "need_fallback_address";
+    public static final String NEED_FALLBACK_HOST_AND_PORT = "need_fallback_host_and_port";
     
-    public static final String FALLBACK_ADDRESS = "fallback_address";
+    public static final String FALLBACK_HOST_AND_PORT = "fallback_host_and_port";
     
     public static final String IS_FALLBACK_PROXY = "is_fallback_proxy";
 
