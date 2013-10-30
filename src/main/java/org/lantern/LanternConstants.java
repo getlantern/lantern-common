@@ -29,7 +29,9 @@ public class LanternConstants {
      */
     public static final long CHUNK_SIZE = 2000000 - 1;
 
-    public static final String STATS_URL = "http://lanternctrl.appspot.com/stats";
+    public static final String GAE_ID = "lanternctrl";
+    public static final String BASE_URL = String.format("https://%1$s.appspot.com", GAE_ID);
+    public static final String STATS_URL = String.format("%1$s/stats", BASE_URL);
 
     public static final String VERSION_KEY = "v";
 
