@@ -65,9 +65,7 @@ public class LanternConstants {
      * it maps to its version, when server sends to client it maps to the
      * latest version.
      */
-    public static final String UPDATE_KEY = "uk";
-
-    public static final String UPDATE_VERSION_KEY = "number";
+    public static final String UPDATE_KEY = "update";
 
     /**
      * maps to version's info url
@@ -76,8 +74,6 @@ public class LanternConstants {
     public static final String UPDATE_URL_KEY = "url";
 
     public static final String UPDATE_RELEASE_DATE_KEY = "rd";
-
-    public static final String UPDATE_MESSAGE_KEY = "message";
 
     public static final String INVITES_KEY = "invites";
 
