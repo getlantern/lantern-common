@@ -9,10 +9,10 @@ public class SemanticVersion implements Comparable<SemanticVersion> {
     private static final String FORMAT = "(\\d+)\\.(\\d+)\\.(\\d+)(\\-\\w+)?";
     private static final Pattern PATTERN = Pattern.compile("^" + FORMAT + "$");
 
-    private int major;
-    private int minor;
-    private int patch;
-    private String tag;
+    protected int major;
+    protected int minor;
+    protected int patch;
+    protected String tag;
 
     public SemanticVersion() {
     }
