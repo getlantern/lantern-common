@@ -1,9 +1,12 @@
 package org.lantern;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 
 public class SemanticVersion implements Comparable<SemanticVersion> {
     private static final String FORMAT = "(\\d+)\\.(\\d+)\\.(\\d+)(\\-\\w+)?";
@@ -72,6 +75,15 @@ public class SemanticVersion implements Comparable<SemanticVersion> {
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("major", getMajor());
+        map.put("minor", getMinor());
+        map.put("patch", getPatch());
+        map.put("tag", getTag());
+        return map;
     }
 
     @Override
