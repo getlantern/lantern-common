@@ -67,14 +67,6 @@ public class LanternConstants {
      */
     public static final String UPDATE_KEY = "update";
 
-    /**
-     * maps to version's info url
-     * (e.g. "http://get-lantern.tumblr.com/post/xyz/lantern-1-0-0-beta7-just-went-live")
-     */
-    public static final String UPDATE_URL_KEY = "url";
-
-    public static final String UPDATE_RELEASE_DATE_KEY = "rd";
-
     public static final String INVITES_KEY = "invites";
 
     public static final String INVITED_EMAIL = "invem";
