@@ -34,6 +34,13 @@ public class SemanticVersion implements Comparable<SemanticVersion> {
         return new SemanticVersion(major, minor, patch, tag);
     }
 
+    public void become(SemanticVersion other) {
+        major = other.getMajor();
+        minor = other.getMinor();
+        patch = other.getPatch();
+        tag = other.getTag();
+    }
+
     /**
      * @param tag Pass null to indicate no tag.
      */
