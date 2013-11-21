@@ -6,7 +6,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateFormatUtils;
 
 public class SemanticVersion implements Comparable<SemanticVersion> {
     private static final String FORMAT = "(\\d+)\\.(\\d+)\\.(\\d+)(\\-\\w+)?";
@@ -136,19 +135,5 @@ public class SemanticVersion implements Comparable<SemanticVersion> {
             return 0;
         }
         return this.toComparableString().compareTo(o.toComparableString());
-    }
-
-
-    // TODO: move this to unit tests
-    public static void main(String[] args) {
-        SemanticVersion beta7 = new SemanticVersion(1, 0, 0, "beta7");
-        SemanticVersion rc1 = new SemanticVersion(1, 0, 0, "rc1");
-        SemanticVersion final_ = new SemanticVersion(1, 0, 0, null);
-        System.out.println(beta7.toComparableString());
-        System.out.println(rc1.toComparableString());
-        System.out.println(final_.toComparableString());
-        System.out.println(beta7.compareTo(rc1) < 0);
-        System.out.println(rc1.compareTo(final_) < 0);
-        System.out.println(beta7.compareTo(final_) < 0);
     }
 }

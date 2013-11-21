@@ -4,9 +4,6 @@ import java.util.Date;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.lantern.SemanticVersion;
-
 
 public class LanternVersion extends SemanticVersion {
     private final static transient Logger LOG = Logger
