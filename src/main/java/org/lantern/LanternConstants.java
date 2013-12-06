@@ -103,6 +103,7 @@ public class LanternConstants {
     
     public static final String FALLBACK_HOST_AND_PORT = "fallback_host_and_port";
     
+    public static final String FALLBACK_GROUP_AND_SERIAL = "fp_group_sno";
     public static final String IS_FALLBACK_PROXY = "is_fallback_proxy";
 
     /**
