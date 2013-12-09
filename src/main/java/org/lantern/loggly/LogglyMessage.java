@@ -86,30 +86,4 @@ public class LogglyMessage {
         this.nSimilarSuppressed.set(nSimilarSuppressed);
         return this;
     }
-
-    @Override
-    public int hashCode() {
-        if (throwableOrigin == null) {
-            return super.hashCode();
-        }
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + throwableOrigin.hashCode();
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        LogglyMessage other = (LogglyMessage) obj;
-        if (throwableOrigin == null) {
-            return false;
-        }
-        return throwableOrigin.equals(other.throwableOrigin);
-    }
 }
