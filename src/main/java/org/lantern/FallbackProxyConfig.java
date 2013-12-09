@@ -8,26 +8,19 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class FallbackProxyConfig {
 
-    private String group;
-    private int serial;
+    private String cookie;
     private Collection<FallbackProxy> proxies;
 
     public FallbackProxyConfig() {}
 
-    public FallbackProxyConfig(String group,
-                               int serial,
+    public FallbackProxyConfig(String cookie,
                                Collection<FallbackProxy> proxies) {
-        this.group = group;
-        this.serial = serial;
+        this.cookie = cookie;
         this.proxies = proxies;
     }
 
-    public String getGroup() {
-        return group;
-    }
-
-    public int getSerial() {
-        return serial;
+    public String getCookie() {
+        return cookie;
     }
 
     public Collection<FallbackProxy> getProxies() {

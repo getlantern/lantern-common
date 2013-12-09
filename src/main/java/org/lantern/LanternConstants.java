@@ -93,7 +93,7 @@ public class LanternConstants {
     
     public static final String HOST_AND_PORT = "host_and_port";
     
-    public static final String FALLBACK_GROUP_AND_SERIAL = "fp_group_sno";
+    public static final String FALLBACK_COOKIE = "fp_cookie";
 
     public static final String FALLBACK_UPDATE_KEY = "fp_update";
 
