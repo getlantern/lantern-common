@@ -93,6 +93,9 @@ public class LanternConstants {
     
     public static final String HOST_AND_PORT = "host_and_port";
     
+    public static final String FALLBACK_HOST_AND_PORT
+        = "fallback_host_and_port";
+
     public static final String FALLBACK_COOKIE = "fp_cookie";
 
     public static final String FALLBACK_UPDATE_KEY = "fp_update";
