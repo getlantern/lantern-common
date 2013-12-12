@@ -1,8 +1,6 @@
 package org.lantern.loggly;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,8 +12,13 @@ import org.codehaus.jackson.map.ObjectMapper;
 public class Loggly {
     private static final String url = "https://logs-01.loggly.com/inputs/469973d5-6eaf-445a-be71-cf27141316a1/tag/http-client/";
 
+    private final boolean inTestMode;
     private final ObjectMapper mapper = new ObjectMapper();
     private final ConcurrentHashMap<String, LogglyMessage> messageCounts = new ConcurrentHashMap<String, LogglyMessage>();
+
+    public Loggly(boolean inTestMode) {
+        this.inTestMode = inTestMode;
+    }
 
     public void log(LogglyMessage msg) {
         String throwableOrigin = msg.getThrowableOrigin();
@@ -47,25 +50,22 @@ public class Loggly {
         try {
             HttpsURLConnection conn = (HttpsURLConnection) new URL(url)
                     .openConnection();
+            if (inTestMode) {
+                conn.setRequestProperty("X-LOGGLY-TAG", "test");
+            }
             conn.setRequestMethod("POST");
             conn.setDoOutput(true);
             OutputStream out = conn.getOutputStream();
-            InputStream in = conn.getInputStream();
             try {
                 mapper.writeValue(out, msg);
-                BufferedInputStream bufferedIn = new BufferedInputStream(in);
-                while (bufferedIn.read() != 0) {
-                    // consume response
-                    // TODO: check response code and stuff
+                int code = conn.getResponseCode();
+                if (code >= 300) {
+                    // will be logged below
+                    throw new Exception("Got "+code+" response:\n"+conn.getResponseMessage());
                 }
             } finally {
                 try {
                     out.close();
-                } catch (IOException ioe) {
-                    ioe.printStackTrace(System.err);
-                }
-                try {
-                    in.close();
                 } catch (IOException ioe) {
                     ioe.printStackTrace(System.err);
                 }
