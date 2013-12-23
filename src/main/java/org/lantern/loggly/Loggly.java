@@ -2,6 +2,8 @@ package org.lantern.loggly;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.net.URL;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -15,25 +17,34 @@ public class Loggly {
     private final boolean inTestMode;
     private final ObjectMapper mapper = new ObjectMapper();
     private final ConcurrentHashMap<String, LogglyMessage> messageCounts = new ConcurrentHashMap<String, LogglyMessage>();
+    private final Proxy proxy;
 
     public Loggly(boolean inTestMode) {
+        this(inTestMode, null);
+    }
+
+    public Loggly(boolean inTestMode, InetSocketAddress proxyAddress) {
         this.inTestMode = inTestMode;
+        if (proxyAddress != null) {
+            this.proxy = new Proxy(Proxy.Type.HTTP, proxyAddress);
+        } else {
+            this.proxy = null;
+        }
     }
 
     public void log(LogglyMessage msg) {
-        String throwableOrigin = msg.getThrowableOrigin();
-        if (throwableOrigin == null) {
+        String msgKey = msg.getKey();
+        if (msgKey == null) {
             // Can't dedupe, report immediately
             reportToLoggly(msg);
         } else {
             LogglyMessage previouslySet = messageCounts.putIfAbsent(
-                    msg.getThrowableOrigin(), msg);
+                    msgKey, msg);
             if (previouslySet == null) {
                 reportToLoggly(msg);
             } else {
                 previouslySet.incrementNsimilarSuppressed();
-                // TODO: decide when to report batches of messages
-                boolean report = false;
+                boolean report = previouslySet.getnSimilarSuppressed() >= 200;
                 if (report) {
                     // Report the most recent message with the full count of
                     // similar suppressed
@@ -49,7 +60,7 @@ public class Loggly {
     private void reportToLoggly(LogglyMessage msg) {
         try {
             HttpsURLConnection conn = (HttpsURLConnection) new URL(url)
-                    .openConnection();
+                    .openConnection(proxy);
             if (inTestMode) {
                 conn.setRequestProperty("X-LOGGLY-TAG", "test");
             }
@@ -61,7 +72,8 @@ public class Loggly {
                 int code = conn.getResponseCode();
                 if (code >= 300) {
                     // will be logged below
-                    throw new Exception("Got "+code+" response:\n"+conn.getResponseMessage());
+                    throw new Exception("Got " + code + " response:\n"
+                            + conn.getResponseMessage());
                 }
             } finally {
                 try {
