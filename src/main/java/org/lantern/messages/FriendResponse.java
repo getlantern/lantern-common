@@ -1,5 +1,7 @@
 package org.lantern.messages;
 
+import com.google.appengine.repackaged.org.codehaus.jackson.JsonNode;
+
 /**
  * A response from the FriendEndpoint API.
  * 
@@ -10,6 +12,7 @@ public class FriendResponse<P> {
     private boolean success;
     private int remainingFriendingQuota;
     private P payload;
+    private JsonNode payloadJson;
 
     public FriendResponse() {
     }
@@ -43,7 +46,11 @@ public class FriendResponse<P> {
         return payload;
     }
 
-    public void setPayload(P payload) {
-        this.payload = payload;
+    public void setPayload(JsonNode payloadJson) {
+        this.payloadJson = payloadJson;
+    }
+
+    public JsonNode getPayloadJson() {
+        return payloadJson;
     }
 }
