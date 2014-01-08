@@ -25,7 +25,7 @@ public class FriendResponse<P> {
             int remainingFriendingQuota,
             P payload) {
         super();
-        this.success = true;
+        this.success = success;
         this.remainingFriendingQuota = remainingFriendingQuota;
         this.payload = payload;
         try {
