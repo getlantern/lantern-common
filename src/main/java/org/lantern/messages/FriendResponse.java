@@ -1,6 +1,5 @@
 package org.lantern.messages;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -74,8 +73,7 @@ public class FriendResponse<P> {
         this.payloadJson = payloadJson;
     }
 
-    @JsonIgnore
-    public P getPayload() {
+    public P payload() {
         return payload;
     }
 
