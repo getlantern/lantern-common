@@ -36,6 +36,20 @@ public class FriendResponse<P> {
         }
     }
 
+    public static <P> FriendResponse<P> fromJson(String json,
+            Class<P> payloadType) {
+        try {
+            FriendResponse<P> resp = MAPPER.readValue(json,
+                    FriendResponse.class);
+            if (resp.payloadJson != null) {
+                resp.payload = MAPPER.readValue(resp.payloadJson, payloadType);
+            }
+            return resp;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public boolean isSuccess() {
         return success;
     }
@@ -51,7 +65,7 @@ public class FriendResponse<P> {
     public void setRemainingFriendingQuota(int remainingFriendingQuota) {
         this.remainingFriendingQuota = remainingFriendingQuota;
     }
-    
+
     public String getPayloadJson() {
         return payloadJson;
     }
@@ -63,14 +77,6 @@ public class FriendResponse<P> {
     @JsonIgnore
     public P getPayload() {
         return payload;
-    }
-
-    public <P2> P2 getPayloadAs(Class<P2> type) {
-        try {
-            return MAPPER.readValue(payloadJson, type);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
 }
