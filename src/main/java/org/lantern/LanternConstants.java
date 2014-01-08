@@ -1,5 +1,6 @@
 package org.lantern;
 
+import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
 
 /**
@@ -35,6 +36,10 @@ public class LanternConstants {
     public static final String ARCH_KEY = "ar";
 
     public static final int LANTERN_LOCALHOST_HTTP_PORT = 8787;
+    
+    public static final InetSocketAddress LANTERN_LOCALHOST_ADDR =
+            new InetSocketAddress("127.0.0.1",
+                    LANTERN_LOCALHOST_HTTP_PORT);
 
     public static final String USER_NAME = "un";
     public static final String PASSWORD = "pwd";
