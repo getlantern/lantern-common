@@ -1,7 +1,5 @@
 package org.lantern.messages;
 
-import org.lantern.data.FriendingQuota;
-
 /**
  * A response from the FriendEndpoint API.
  * 
@@ -16,17 +14,13 @@ public class FriendResponse<P> {
     public FriendResponse() {
     }
 
-    private FriendResponse(boolean success,
-            FriendingQuota quota,
+    public FriendResponse(boolean success,
+            int remainingFriendingQuota,
             P payload) {
         super();
         this.success = true;
-        this.remainingFriendingQuota = quota.getRemainingQuota();
+        this.remainingFriendingQuota = remainingFriendingQuota;
         this.payload = payload;
-    }
-    
-    public FriendResponse(FriendingQuota quota) {
-        
     }
 
     public boolean isSuccess() {
