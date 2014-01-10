@@ -6,15 +6,14 @@ import org.apache.commons.lang.StringUtils;
 
 public class EmailAddressUtils {
     /**
-     * From https://github.com/getlantern/lantern/issues/1300:
+     * Given an email (or the userid part of a jabberid), returns a normalized version with
+     * the following transformations applied:
      *
-     * "We should have a LanternControllerUtils.normalizeEmail that takes an email (or
-     * the userid part of a jabberid) and returns a normalized version with folded
-     * case, '.'s and '+'s stripped from the username, and '@googlemail.com' replaced
-     * with '@gmail.com'."
-     *
-     * Domains other than gmail.com and googlemail.com are assumed to be Google Apps for
-     * Domains domains and are not changed.
+     *     - lowercase
+     *     - '.' characters removed from the username part
+     *     - plus-extensions removed from the username
+     *     - domains of 'googlemail.com' replaced with 'gmail.com'. other
+     *       domains left as-is.
      *
      * If a string that is not of the expected form is passed in, no guarantee is
      * made about the result.
