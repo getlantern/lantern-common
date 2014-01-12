@@ -34,5 +34,9 @@ public interface Friend {
     void setLastUpdated(long lastUpdated);
     
     long getLastUpdated();
+    
+    void setFreeToFriend(boolean freeToFriend);
+    
+    boolean isFreeToFriend();
 
 }
