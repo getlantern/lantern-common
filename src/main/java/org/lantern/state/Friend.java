@@ -37,6 +37,12 @@ public interface Friend {
     
     void setFreeToFriend(boolean freeToFriend);
     
+    /**
+     * Indicates whether friending this friend is free (i.e. they've already
+     * friended you).
+     * 
+     * @return
+     */
     boolean isFreeToFriend();
 
 }
