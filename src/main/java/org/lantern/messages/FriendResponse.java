@@ -1,7 +1,6 @@
 package org.lantern.messages;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.codehaus.jackson.map.ObjectMapper;
+import static org.lantern.JsonUtils.*;
 
 /**
  * A response from the FriendEndpoint API.
@@ -9,10 +8,7 @@ import org.codehaus.jackson.map.ObjectMapper;
  * @param <P>
  *            type of payload carried in this response
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class FriendResponse<P> {
-    private static final ObjectMapper MAPPER = new ObjectMapper();
-
     private boolean success;
     private int remainingFriendingQuota;
     private P payload;
@@ -29,7 +25,7 @@ public class FriendResponse<P> {
         this.remainingFriendingQuota = remainingFriendingQuota;
         this.payload = payload;
         try {
-            this.payloadJson = MAPPER.writeValueAsString(payload);
+            this.payloadJson = OBJECT_MAPPER.writeValueAsString(payload);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -38,10 +34,11 @@ public class FriendResponse<P> {
     public static <P> FriendResponse<P> fromJson(String json,
             Class<P> payloadType) {
         try {
-            FriendResponse<P> resp = MAPPER.readValue(json,
+            FriendResponse<P> resp = OBJECT_MAPPER.readValue(json,
                     FriendResponse.class);
             if (resp.payloadJson != null) {
-                resp.payload = MAPPER.readValue(resp.payloadJson, payloadType);
+                resp.payload = OBJECT_MAPPER.readValue(resp.payloadJson,
+                        payloadType);
             }
             return resp;
         } catch (Exception e) {

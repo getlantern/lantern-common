@@ -2,7 +2,6 @@ package org.lantern;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown=true)
 public interface Stats {
 
     long getUptime();
