@@ -59,7 +59,7 @@ public class Loggly {
     private void reportToLoggly(LogglyMessage msg) {
         try {
             HttpsURLConnection conn = (HttpsURLConnection) new URL(url)
-                    .openConnection(proxy);
+                    .openConnection(proxy == null ? Proxy.NO_PROXY : proxy);
             if (inTestMode) {
                 conn.setRequestProperty("X-LOGGLY-TAG", "test");
             }
