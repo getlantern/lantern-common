@@ -34,5 +34,13 @@ public interface Friend {
     void setLastUpdated(long lastUpdated);
     
     long getLastUpdated();
+    
+    boolean isSuggestedBecauseOnRoster();
+
+    void setSuggestedBecauseOnRoster(boolean suggestedBecauseOnRoster);
+
+    boolean isSuggestedBecauseInvited();
+
+    void setSuggestedBecauseInvited(boolean suggestedBecauseInvited);
 
 }
