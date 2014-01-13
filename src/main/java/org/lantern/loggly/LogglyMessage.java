@@ -3,11 +3,13 @@ package org.lantern.loggly;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Date;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.lantern.JsonUtils;
 
 public class LogglyMessage {
     private static final Sanitizer[] SANITIZERS = new Sanitizer[] {
@@ -108,6 +110,11 @@ public class LogglyMessage {
         this.extra = extra;
         return this;
     }
+    
+    public LogglyMessage setExtraFromJson(String json) {
+        this.extra = json != null ? JsonUtils.decode(json, Map.class) : null;
+        return this;
+    }
 
     public String getStackTrace() {
         return stackTrace;
@@ -198,5 +205,12 @@ public class LogglyMessage {
         public IPv4Sanitizer() {
             super(IP_REGEX, IP_REPLACEMENT);
         }
+    }
+    
+    public static void main(String[] args) throws Exception {
+        // Testing
+        LogglyMessage msg = new LogglyMessage("reporter", "message", new Date())
+            .setExtraFromJson("{\"key\": \"value\", \"otherKey\": 5}");
+        System.out.println(msg.getExtra());
     }
 }

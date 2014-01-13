@@ -52,6 +52,15 @@ public class JsonUtils {
         }
         return "";
     }
+    
+    public static <T> T decode(String json, Class<T> valueType) {
+        try {
+            return (T) OBJECT_MAPPER.readValue(json, valueType);
+        } catch (final IOException e) {
+            LOG.warn("Error decoding JSON", e);
+        }
+        return null;
+    }
 
     public static String getValueFromJson(final String key, final String json) {
         try {
