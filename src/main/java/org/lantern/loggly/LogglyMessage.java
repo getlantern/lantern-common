@@ -156,7 +156,7 @@ public class LogglyMessage {
          * Sanitize the given original string.
          * 
          * @param original
-         * @return the string to be sent to Exceptional
+         * @return the sanitized string
          */
         String sanitize(String original);
     }
