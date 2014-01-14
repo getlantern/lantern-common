@@ -2,12 +2,11 @@ package org.lantern.loggly;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.URL;
 import java.util.concurrent.ConcurrentHashMap;
-
-import javax.net.ssl.HttpsURLConnection;
 
 import org.lantern.JsonUtils;
 
@@ -58,7 +57,7 @@ public class Loggly {
 
     private void reportToLoggly(LogglyMessage msg) {
         try {
-            HttpsURLConnection conn = (HttpsURLConnection) new URL(url)
+            HttpURLConnection conn = (HttpURLConnection) new URL(url)
                     .openConnection(proxy == null ? Proxy.NO_PROXY : proxy);
             if (inTestMode) {
                 conn.setRequestProperty("X-LOGGLY-TAG", "test");
