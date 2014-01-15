@@ -46,8 +46,8 @@ public class LogglyMessage {
     }
 
     /**
-     * Sanitizes the {@link #message} and {@link #stackTrace} to remove
-     * sensitive data.
+     * Sanitizes {@link #message}, {@link #stackTrace}, and {@link #extra}
+     * to obscure sensitive data. {@link #extra} must be JSON-serializable.
      * 
      * @return this
      */
@@ -57,6 +57,11 @@ public class LogglyMessage {
         }
         if (stackTrace != null) {
             stackTrace = sanitize(stackTrace);
+        }
+        if (extra != null) {
+            String json = JsonUtils.jsonify(extra);
+            json = sanitize(json);
+            this.setExtraFromJson(json);
         }
         return this;
     }
@@ -201,7 +206,7 @@ public class LogglyMessage {
      */
     private static class IPv4Sanitizer extends RegexSanitizer {
         private static final String IP_REGEX = "(?:[0-9]{1,3}\\.){3}[0-9]{1,3}"; // TODO (see [1] below)
-        private static final String IP_REPLACEMENT = "???.???.???.???";
+        private static final String IP_REPLACEMENT = "<IP hidden>";
 
         public IPv4Sanitizer() {
             super(IP_REGEX, IP_REPLACEMENT);
@@ -231,8 +236,9 @@ public class LogglyMessage {
         LogglyMessage msg = new LogglyMessage("reporter",
             "This message contains a dummy IP address (12.34.56.789) " +
             "and two emails: a@foo.com and b@bar.com.", new Date())
-            .setExtraFromJson("{\"key\": \"value\", \"otherKey\": 5}");
-        System.out.println(msg.sanitized().getMessage());
+            .setExtraFromJson("{\"key\": \"email! c@qux.co.uk! IP? 123.45.67.89?\", \"otherKey\": 5}");
+        msg = msg.sanitized();
+        System.out.println(msg.getMessage());
         System.out.println(msg.getExtra());
     }
 }
