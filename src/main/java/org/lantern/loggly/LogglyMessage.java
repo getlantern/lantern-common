@@ -200,7 +200,7 @@ public class LogglyMessage {
      * address with ???.???.???.???.
      */
     private static class IPv4Sanitizer extends RegexSanitizer {
-        private static final String IP_REGEX = "(?:[0-9]{1,3}\\.){3}[0-9]{1,3}";
+        private static final String IP_REGEX = "(?:[0-9]{1,3}\\.){3}[0-9]{1,3}"; // TODO (see [1] below)
         private static final String IP_REPLACEMENT = "???.???.???.???";
 
         public IPv4Sanitizer() {
@@ -214,13 +214,17 @@ public class LogglyMessage {
      */
     private static class EmailSanitizer extends RegexSanitizer {
         // based on http://www.regular-expressions.info/email.html
-        private static final String EMAIL_REGEX = "[a-zA-Z0-9._%+-]+@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,4}";
+        private static final String EMAIL_REGEX = "[a-zA-Z0-9._%+-]+@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,4}"; // TODO (see [1] below)
         private static final String EMAIL_REPLACEMENT = "<email hidden>";
 
         public EmailSanitizer() {
             super(EMAIL_REGEX, EMAIL_REPLACEMENT);
         }
     }
+
+    // [1] Maybe these should be moved to LanternConstants. 
+    // Would also be nice if the frontend could share these kinds of constants with the backend,
+    // since currently they're being duplicated. 
 
     public static void main(String[] args) throws Exception {
         // Testing
