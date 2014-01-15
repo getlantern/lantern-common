@@ -13,7 +13,8 @@ import org.lantern.JsonUtils;
 
 public class LogglyMessage {
     private static final Sanitizer[] SANITIZERS = new Sanitizer[] {
-            new IPv4Sanitizer()
+            new IPv4Sanitizer(),
+            new EmailSanitizer()
     };
 
     private String reporterId;
@@ -206,11 +207,28 @@ public class LogglyMessage {
             super(IP_REGEX, IP_REPLACEMENT);
         }
     }
-    
+
+    /**
+     * A {@link Sanitizer} that replaces everything that looks like an email
+     * address with <email hidden>.
+     */
+    private static class EmailSanitizer extends RegexSanitizer {
+        // based on http://www.regular-expressions.info/email.html
+        private static final String EMAIL_REGEX = "[a-zA-Z0-9._%+-]+@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,4}";
+        private static final String EMAIL_REPLACEMENT = "<email hidden>";
+
+        public EmailSanitizer() {
+            super(EMAIL_REGEX, EMAIL_REPLACEMENT);
+        }
+    }
+
     public static void main(String[] args) throws Exception {
         // Testing
-        LogglyMessage msg = new LogglyMessage("reporter", "message", new Date())
+        LogglyMessage msg = new LogglyMessage("reporter",
+            "This message contains a dummy IP address (12.34.56.789) " +
+            "and two emails: a@foo.com and b@bar.com.", new Date())
             .setExtraFromJson("{\"key\": \"value\", \"otherKey\": 5}");
+        System.out.println(msg.sanitized().getMessage());
         System.out.println(msg.getExtra());
     }
 }
