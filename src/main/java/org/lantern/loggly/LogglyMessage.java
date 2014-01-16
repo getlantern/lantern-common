@@ -219,7 +219,7 @@ public class LogglyMessage {
      */
     private static class EmailSanitizer extends RegexSanitizer {
         // based on http://www.regular-expressions.info/email.html
-        private static final String EMAIL_REGEX = "[a-zA-Z0-9._%+-]+@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,4}"; // TODO (see [1] below)
+        private static final String EMAIL_REGEX = "[a-zA-Z0-9._%+-]+@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}"; // TODO (see [1] below)
         private static final String EMAIL_REPLACEMENT = "<email hidden>";
 
         public EmailSanitizer() {
