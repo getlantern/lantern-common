@@ -2,12 +2,15 @@ package org.lantern.messages;
 
 import static org.lantern.JsonUtils.*;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  * A response from the FriendEndpoint API.
  * 
  * @param <P>
  *            type of payload carried in this response
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class FriendResponse<P> {
     private boolean success;
     private int remainingFriendingQuota;
