@@ -46,24 +46,29 @@ public class LogglyMessage {
     }
 
     /**
-     * Sanitizes {@link #message}, {@link #stackTrace}, and {@link #extra}
-     * to obscure sensitive data. {@link #extra} must be JSON-serializable.
-     * 
+     * Sanitizes {@link #message}, {@link #stackTrace}, and if sanitizeExtra is
+     * true, {@link #extra} (which must then be JSON-serializable), using the
+     * {@link #SANITIZERS} defined.
+     *
      * @return this
      */
-    public LogglyMessage sanitized() {
+    public LogglyMessage sanitized(boolean sanitizeExtra) {
         if (message != null) {
             message = sanitize(message);
         }
         if (stackTrace != null) {
             stackTrace = sanitize(stackTrace);
         }
-        if (extra != null) {
+        if (sanitizeExtra && extra != null) {
             String json = JsonUtils.jsonify(extra);
             json = sanitize(json);
             this.setExtraFromJson(json);
         }
         return this;
+    }
+
+    public LogglyMessage sanitized() {
+        return sanitized(true);
     }
 
     public String getLocationInfo() {
