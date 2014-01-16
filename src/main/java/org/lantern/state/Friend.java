@@ -10,6 +10,11 @@ public interface Friend {
         rejected,
         pending //everything else
     }
+    
+    public enum SuggestionReason {
+        friendedYou,
+        runningLantern
+    }
 
     Long getId();
 
@@ -44,5 +49,9 @@ public interface Friend {
      * @return
      */
     boolean isFreeToFriend();
+    
+    SuggestionReason getReason();
+    
+    void setReason(SuggestionReason reason);
 
 }
