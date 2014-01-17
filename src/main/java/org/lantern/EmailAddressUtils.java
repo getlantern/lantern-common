@@ -2,7 +2,7 @@ package org.lantern;
 
 import java.util.Locale;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class EmailAddressUtils {
     /**
