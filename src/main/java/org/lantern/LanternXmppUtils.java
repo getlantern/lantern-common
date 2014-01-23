@@ -17,7 +17,8 @@ public class LanternXmppUtils {
         return false;
     }
 
-    public static String jidToEmail(final String jid) {
+    public static String jidToEmail(final String jid)
+            throws EmailAddressUtils.NormalizationException {
         return EmailAddressUtils.normalizedEmail(
                 StringUtils.substringBefore(jid, "/"));
     }
