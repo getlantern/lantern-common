@@ -5,12 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 
 public class LanternXmppUtils {
 
-    /** This is misspelled -- use jidToResourceId */
-    @Deprecated
-    public static String jidToInstanceId(final String fullId) {
-        return fullId.split("/", 2)[1];
-    }
-
     public static String jidToResourceId(final String fullId) {
         return fullId.split("/", 2)[1];
     }
@@ -24,9 +18,7 @@ public class LanternXmppUtils {
     }
 
     public static String jidToEmail(final String jid) {
-        if (jid.contains("/")) {
-            return StringUtils.substringBefore(jid, "/").toLowerCase();
-        }
-        return jid.toLowerCase();
+        return EmailAddressUtils.normalizedEmail(
+                StringUtils.substringBefore(jid, "/"));
     }
 }
