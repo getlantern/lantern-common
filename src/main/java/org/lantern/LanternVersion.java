@@ -10,8 +10,8 @@ public class LanternVersion extends SemanticVersion {
             .getLogger("LanternVersion");
 
     protected Date releaseDate;
-
     protected String infoUrl;
+    protected String installerBaseUrl;
 
     public LanternVersion() {
     }
@@ -32,10 +32,19 @@ public class LanternVersion extends SemanticVersion {
         this.infoUrl = infoUrl;
     }
 
+    public String getInstallerBaseUrl() {
+        return installerBaseUrl;
+    }
+
+    public void setInstallerBaseUrl(String installerBaseUrl) {
+        this.installerBaseUrl = installerBaseUrl;
+    }
+
     @Override
     public Map<String, Object> toMap() {
         Map<String, Object> map = super.toMap();
         map.put("infoUrl", getInfoUrl());
+        map.put("installerBaseUrl", getInstallerBaseUrl());
         map.put("releaseDate", DateSerializer.formattedDate(getReleaseDate()));
         return map;
     }
