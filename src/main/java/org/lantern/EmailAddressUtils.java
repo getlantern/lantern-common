@@ -6,7 +6,13 @@ import org.apache.commons.lang.StringUtils;
 
 public class EmailAddressUtils {
 
-    public static class NormalizationException extends Exception {
+    // Extending RuntimeException so we don't have to catch this explicitly.
+    // It's not clear what could trigger this, if anything, nor what to do
+    // about it most of the time.  We were rethrowing this as
+    // a RuntimeException every time anyway, a real PITA.  If you know of some
+    // other sensible way to handle these in a particular situation, you can
+    // still catch this.
+    public static class NormalizationException extends RuntimeException {
         public NormalizationException(String s, Throwable t) {
             super(s, t);
         }
