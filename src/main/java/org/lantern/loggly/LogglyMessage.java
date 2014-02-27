@@ -30,7 +30,9 @@ public class LogglyMessage {
 
     public LogglyMessage(String reporterId, String message, Date occurredAt) {
         this.reporterId = reporterId;
+        // This holds the full original message
         this.fullMessage = message;
+        // We truncate message to 100 because Loggly can't index fields with more than 100 characters of data
         this.message = message.length() > 100 ? message.substring(0, 100) : message;
         this.occurredAt = occurredAt;
     }
