@@ -19,6 +19,7 @@ public class LogglyMessage {
 
     private String reporterId;
     private String message;
+    private String fullMessage;
     private Date occurredAt;
     private String locationInfo;
     private Throwable throwable;
@@ -29,7 +30,8 @@ public class LogglyMessage {
 
     public LogglyMessage(String reporterId, String message, Date occurredAt) {
         this.reporterId = reporterId;
-        this.message = message;
+        this.fullMessage = message;
+        this.message = message.length() > 100 ? message.substring(0, 100) : message;
         this.occurredAt = occurredAt;
     }
 
@@ -39,6 +41,10 @@ public class LogglyMessage {
 
     public String getMessage() {
         return message;
+    }
+    
+    public String getFullMessage() {
+        return fullMessage;
     }
 
     public Date getOccurredAt() {
