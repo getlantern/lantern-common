@@ -15,12 +15,12 @@ import org.lantern.LanternConstants;
 /**
  * Base of API for submitting stats to StatsHub.
  */
-public class StatsHubAPI extends HttpURLClient {
-    public StatsHubAPI() {
+public class StatshubAPI extends HttpURLClient {
+    public StatshubAPI() {
         this(null);
     }
 
-    public StatsHubAPI(InetSocketAddress proxyAddress) {
+    public StatshubAPI(InetSocketAddress proxyAddress) {
         super(proxyAddress);
     }
 
