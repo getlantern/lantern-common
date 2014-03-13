@@ -59,6 +59,7 @@ public class LanternConstants {
     public static final String SERVERS = "s";
     public static final String UPDATE_TIME = "ut";
     public static final String ROSTER = "roster";
+    public static final String USER_GUID = "guid";
 
 
     /**
