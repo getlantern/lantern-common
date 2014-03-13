@@ -66,7 +66,6 @@ public class StatshubAPI extends HttpURLClient {
     public StatsResponse getStats(String id) throws Exception {
         HttpURLConnection conn = newConn(urlFor(id));
         conn.setRequestMethod("GET");
-        conn.setDoOutput(true);
         conn.setRequestProperty("Content-Type", "application/json");
         InputStream in = conn.getInputStream();
         try {

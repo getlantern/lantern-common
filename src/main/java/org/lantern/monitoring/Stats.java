@@ -86,4 +86,7 @@ public class Stats {
         gauge.put(name.toString(), value);
     }
 
+    public static String idForUser(String userGuid) {
+        return "user_" + userGuid;
+    }
 }
