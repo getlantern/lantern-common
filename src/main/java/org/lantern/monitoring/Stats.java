@@ -27,7 +27,12 @@ public class Stats {
         bpsGivenByPeer,
         bpsGotten,
         distinctPeers,
-        online
+        online,
+        processCPUUsage,
+        systemCPUUsage,
+        systemLoadAverage,
+        memoryUsage,
+        openFileDescriptors
     };
 
     private volatile Map<String, Long> counter = new HashMap<String, Long>();
