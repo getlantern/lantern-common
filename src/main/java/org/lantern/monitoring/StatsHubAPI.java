@@ -25,6 +25,42 @@ public class StatshubAPI extends HttpURLClient {
     }
 
     /**
+     * Submit stats for an instance to statshub.
+     * 
+     * @param instanceId
+     * @param userGuid
+     * @param countryCode
+     * @param isFallback
+     * @param stats
+     * @throws Exception
+     */
+    public void postInstanceStats(
+            String instanceId,
+            String userGuid,
+            String countryCode,
+            boolean isFallback,
+            Stats stats)
+            throws Exception {
+        postStats("instance_" + instanceId, userGuid, countryCode, isFallback, stats);
+    }
+
+    /**
+     * Submit stats for a user to statshub.
+     * 
+     * @param userGuid
+     * @param countryCode
+     * @param stats
+     * @throws Exception
+     */
+    public void postUserStats(
+            String userGuid,
+            String countryCode,
+            Stats stats)
+            throws Exception {
+        postStats("user_" + userGuid, userGuid, countryCode, false, stats);
+    }
+
+    /**
      * Submits stats to statshub.
      * 
      * @param id
@@ -34,9 +70,20 @@ public class StatshubAPI extends HttpURLClient {
      * @param stats
      *            the stats
      */
-    public void postStats(String id, Map<String, String> dims, Stats stats)
+    private void postStats(
+            String id,
+            String userGuid,
+            String countryCode,
+            boolean addFallbackDim,
+            Stats stats)
             throws Exception {
         Map<String, Object> request = new HashMap<String, Object>();
+        Map<String, String> dims = new HashMap<String, String>();
+        dims.put("user", userGuid);
+        dims.put("country", countryCode);
+        if (addFallbackDim) {
+            dims.put("fallback", id);
+        }
         request.put("dims", dims);
         request.put("counters", stats.getCounters());
         request.put("increments", stats.getIncrements());
