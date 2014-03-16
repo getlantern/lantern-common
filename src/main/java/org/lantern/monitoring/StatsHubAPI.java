@@ -28,18 +28,26 @@ public class StatshubAPI extends HttpURLClient {
      * Submits stats to statshub.
      * 
      * @param id
-     *            the id (instance or user)
+     *            the stat id (instanceId or userId)
+     * @param userGuid
+     *            globally unique identifier for user
      * @param countryCode
      *            (the country code, xx for unknown)
      * @param stats
      *            the stats
      */
-    public void postStats(String id, String countryCode, Stats stats)
+    public void postStats(String id, String userGuid,
+            String countryCode, Stats stats)
             throws Exception {
         Map<String, Object> request = new HashMap<String, Object>();
-        request.put("countryCode", countryCode);
-        request.put("counter", stats.getCounter());
-        request.put("gauge", stats.getGauge());
+        Map<String, String> dims = new HashMap<String, String>();
+        dims.put("country", countryCode);
+        dims.put("user", userGuid);
+        request.put("dims", dims);
+        request.put("counters", stats.getCounters());
+        request.put("increments", stats.getIncrements());
+        request.put("gauges", stats.getGauges());
+        request.put("members", stats.getMembers());
 
         HttpURLConnection conn = newConn(urlFor(id));
         conn.setRequestMethod("POST");
@@ -63,8 +71,8 @@ public class StatshubAPI extends HttpURLClient {
         }
     }
 
-    public StatsResponse getStats(String id) throws Exception {
-        HttpURLConnection conn = newConn(urlFor(id));
+    public StatsResponse getStats(String dimension) throws Exception {
+        HttpURLConnection conn = newConn(urlFor(dimension + "/"));
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-Type", "application/json");
         InputStream in = conn.getInputStream();
