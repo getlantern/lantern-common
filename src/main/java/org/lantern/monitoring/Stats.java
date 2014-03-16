@@ -83,7 +83,7 @@ public class Stats {
     public Map<String, String> getMembers() {
         return members;
     }
-    
+
     public void setMembers(Map<String, String> members) {
         this.members = members;
     }
@@ -112,7 +112,4 @@ public class Stats {
         members.put(name.toString(), value);
     }
 
-    public static String idForUser(String userGuid) {
-        return "user_" + userGuid;
-    }
 }

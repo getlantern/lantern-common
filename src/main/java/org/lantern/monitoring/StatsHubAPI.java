@@ -29,20 +29,14 @@ public class StatshubAPI extends HttpURLClient {
      * 
      * @param id
      *            the stat id (instanceId or userId)
-     * @param userGuid
-     *            globally unique identifier for user
-     * @param countryCode
-     *            (the country code, xx for unknown)
+     * @param dims
+     *            the dimensions to post with the stats
      * @param stats
      *            the stats
      */
-    public void postStats(String id, String userGuid,
-            String countryCode, Stats stats)
+    public void postStats(String id, Map<String, String> dims, Stats stats)
             throws Exception {
         Map<String, Object> request = new HashMap<String, Object>();
-        Map<String, String> dims = new HashMap<String, String>();
-        dims.put("country", countryCode);
-        dims.put("user", userGuid);
         request.put("dims", dims);
         request.put("counters", stats.getCounters());
         request.put("increments", stats.getIncrements());
