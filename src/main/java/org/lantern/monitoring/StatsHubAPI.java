@@ -13,7 +13,7 @@ import org.lantern.JsonUtils;
 import org.lantern.LanternConstants;
 
 /**
- * Base of API for submitting stats to StatsHub.
+ * API for posting and querying stats to/from statshub.
  */
 public class StatshubAPI extends HttpURLClient {
     public StatshubAPI() {
