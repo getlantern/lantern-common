@@ -27,7 +27,10 @@ public class Stats {
         bpsGivenByPeer,
         bpsGotten,
         distinctPeers,
-        online,
+        userOnline,
+        peerOnline,
+        peerOnlineGive,
+        peerOnlineGet,
         processCPUUsage,
         systemCPUUsage,
         systemLoadAverage,
@@ -36,7 +39,7 @@ public class Stats {
     };
 
     public static enum Members {
-        everOnline
+        userOnlineEver
     }
 
     private volatile Map<String, Long> counters = new HashMap<String, Long>();
