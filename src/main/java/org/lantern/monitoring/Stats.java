@@ -96,6 +96,11 @@ public class Stats {
         counters.put(name.toString() + "_" + country, value);
     }
 
+    public long getCounter(Counters name) {
+        Long value = counters.get(name.toString());
+        return value != null ? value : 0;
+    }
+
     public void setIncrement(Counters name, long value) {
         increments.put(name.toString(), value);
     }
@@ -106,6 +111,11 @@ public class Stats {
 
     public void setGauge(Gauges name, long value) {
         gauges.put(name.toString(), value);
+    }
+
+    public long getGauge(Gauges name) {
+        Long value = gauges.get(name.toString());
+        return value != null ? value : 0;
     }
 
     public void setMember(Members name, String value) {
