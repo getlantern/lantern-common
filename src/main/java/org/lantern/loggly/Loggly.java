@@ -4,30 +4,24 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
-import java.net.Proxy;
-import java.net.URL;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.lantern.HttpURLClient;
 import org.lantern.JsonUtils;
 
-public class Loggly {
-    private static final String url = "https://logs-01.loggly.com/inputs/469973d5-6eaf-445a-be71-cf27141316a1/tag/http-client/";
+public class Loggly extends HttpURLClient {
+    private static final String URL = "https://logs-01.loggly.com/inputs/469973d5-6eaf-445a-be71-cf27141316a1/tag/http-client/";
 
     private final boolean inTestMode;
     private final ConcurrentHashMap<String, LogglyMessage> messageCounts = new ConcurrentHashMap<String, LogglyMessage>();
-    private final Proxy proxy;
 
     public Loggly(boolean inTestMode) {
         this(inTestMode, null);
     }
 
     public Loggly(boolean inTestMode, InetSocketAddress proxyAddress) {
+        super(proxyAddress);
         this.inTestMode = inTestMode;
-        if (proxyAddress != null) {
-            this.proxy = new Proxy(Proxy.Type.HTTP, proxyAddress);
-        } else {
-            this.proxy = null;
-        }
     }
 
     public void log(LogglyMessage msg) {
@@ -57,8 +51,7 @@ public class Loggly {
 
     private void reportToLoggly(LogglyMessage msg) {
         try {
-            HttpURLConnection conn = (HttpURLConnection) new URL(url)
-                    .openConnection(proxy == null ? Proxy.NO_PROXY : proxy);
+            HttpURLConnection conn = newConn(URL);
             if (inTestMode) {
                 conn.setRequestProperty("X-LOGGLY-TAG", "test");
             }

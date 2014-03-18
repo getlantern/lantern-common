@@ -1,6 +1,7 @@
 package org.lantern;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 
 import org.codehaus.jackson.JsonGenerationException;
@@ -38,6 +39,20 @@ public class JsonUtils {
         }
         return "";
     }
+    
+    public static byte[] toBytes(final Object all) {
+
+        try {
+            return OBJECT_MAPPER.writeValueAsBytes(all);
+        } catch (final JsonGenerationException e) {
+            LOG.warn("Error generating JSON", e);
+        } catch (final JsonMappingException e) {
+            LOG.warn("Error generating JSON", e);
+        } catch (final IOException e) {
+            LOG.warn("Error generating JSON", e);
+        }
+        return new byte[0];
+    }
 
     public static String jsonify(final Object all, final Class<?> view) {
         final ObjectWriter writer = OBJECT_MAPPER.writerWithView(view);
@@ -56,6 +71,15 @@ public class JsonUtils {
     public static <T> T decode(String json, Class<T> valueType) {
         try {
             return (T) OBJECT_MAPPER.readValue(json, valueType);
+        } catch (final IOException e) {
+            LOG.warn("Error decoding JSON", e);
+        }
+        return null;
+    }
+    
+    public static <T> T decode(InputStream in, Class<T> valueType) {
+        try {
+            return (T) OBJECT_MAPPER.readValue(in, valueType);
         } catch (final IOException e) {
             LOG.warn("Error decoding JSON", e);
         }
