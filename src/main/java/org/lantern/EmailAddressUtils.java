@@ -29,12 +29,15 @@ public class EmailAddressUtils {
      *       domains left as-is.
      *
      * If a string that is not of the expected form is passed in, no guarantee is
-     * made about the result.
+     * made about the result.  Null and empty strings are left alone.
      *
      * @param input The email address to normalize.
      * @return The normalized email address.
      */
     public static String normalizedEmail(String input) throws NormalizationException {
+        if (input == null || input.length() == 0) {
+            return input;
+        }
         try {
             input = input.toLowerCase(Locale.ENGLISH);
             int idx = input.indexOf("@");
