@@ -25,7 +25,10 @@ public abstract class HttpURLClient {
     }
 
     protected HttpURLConnection newConn(String url) throws IOException {
-        return (HttpURLConnection) new URL(url)
+        final HttpURLConnection conn = (HttpURLConnection) new URL(url)
                 .openConnection(proxy == null ? Proxy.NO_PROXY : proxy);
+        conn.setConnectTimeout(50000);
+        conn.setReadTimeout(120000);
+        return conn;
     }
 }

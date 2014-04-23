@@ -131,6 +131,7 @@ public class StatshubAPI extends HttpURLClient {
             } catch (IOException ioe) {
                 // ignore
             }
+            conn.disconnect();
         }
     }
 
