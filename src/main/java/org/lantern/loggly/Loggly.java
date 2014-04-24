@@ -1,11 +1,11 @@
 package org.lantern.loggly;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.commons.io.IOUtils;
 import org.lantern.HttpURLClient;
 import org.lantern.JsonUtils;
 
@@ -51,14 +51,16 @@ public class Loggly extends HttpURLClient {
 
     private void reportToLoggly(LogglyMessage msg) {
         try {
-            HttpURLConnection conn = newConn(URL);
-            if (inTestMode) {
-                conn.setRequestProperty("X-LOGGLY-TAG", "test");
-            }
-            conn.setRequestMethod("POST");
-            conn.setDoOutput(true);
-            OutputStream out = conn.getOutputStream();
+            OutputStream out = null;
+            HttpURLConnection conn = null;
             try {
+                conn = newConn(URL);
+                if (inTestMode) {
+                    conn.setRequestProperty("X-LOGGLY-TAG", "test");
+                }
+                conn.setRequestMethod("POST");
+                conn.setDoOutput(true);
+                out = conn.getOutputStream();
                 JsonUtils.OBJECT_MAPPER.writeValue(out, msg);
                 int code = conn.getResponseCode();
                 if (code >= 300) {
@@ -67,10 +69,9 @@ public class Loggly extends HttpURLClient {
                             + conn.getResponseMessage());
                 }
             } finally {
-                try {
-                    out.close();
-                } catch (IOException ioe) {
-                    ioe.printStackTrace(System.err);
+                IOUtils.closeQuietly(out);
+                if (conn != null) {
+                    conn.disconnect();
                 }
             }
         } catch (Exception e) {

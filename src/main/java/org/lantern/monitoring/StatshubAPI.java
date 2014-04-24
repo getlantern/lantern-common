@@ -8,6 +8,7 @@ import java.net.InetSocketAddress;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
 import org.lantern.HttpURLClient;
 import org.lantern.JsonUtils;
 import org.lantern.LanternConstants;
@@ -90,12 +91,14 @@ public class StatshubAPI extends HttpURLClient {
         request.put("gauges", stats.getGauges());
         request.put("members", stats.getMembers());
 
-        HttpURLConnection conn = newConn(urlFor(id));
-        conn.setRequestMethod("POST");
-        conn.setDoOutput(true);
-        conn.setRequestProperty("Content-Type", "application/json");
-        OutputStream out = conn.getOutputStream();
+        HttpURLConnection conn = null;
+        OutputStream out = null;
         try {
+            conn = newConn(urlFor(id));
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            conn.setRequestProperty("Content-Type", "application/json");
+            out = conn.getOutputStream();
             JsonUtils.OBJECT_MAPPER.writeValue(out, request);
             int code = conn.getResponseCode();
             if (code != 200) {
@@ -104,34 +107,33 @@ public class StatshubAPI extends HttpURLClient {
                         + conn.getResponseMessage());
             }
         } finally {
-            try {
-                out.close();
-            } catch (IOException ioe) {
-                // ignore
+            IOUtils.closeQuietly(out);
+            if (conn != null) {
+                conn.disconnect();
             }
         }
     }
 
-    public StatsResponse getStats(String dimension) throws Exception {
-        HttpURLConnection conn = newConn(urlFor(dimension + "/"));
-        conn.setRequestMethod("GET");
-        conn.setRequestProperty("Content-Type", "application/json");
-        InputStream in = conn.getInputStream();
+    public StatsResponse getStats(final String dimension) throws IOException {
+        HttpURLConnection conn = null;
+        InputStream in = null;
         try {
+            conn = newConn(urlFor(dimension + "/"));
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Content-Type", "application/json");
+            in = conn.getInputStream();
             int code = conn.getResponseCode();
             if (code != 200) {
                 // will be logged below
-                throw new Exception("Got " + code + " response:\n"
+                throw new IOException("Got " + code + " response:\n"
                         + conn.getResponseMessage());
             }
             return JsonUtils.decode(in, StatsResponse.class);
         } finally {
-            try {
-                in.close();
-            } catch (IOException ioe) {
-                // ignore
+            IOUtils.closeQuietly(in);
+            if (conn != null) {
+                conn.disconnect();
             }
-            conn.disconnect();
         }
     }
 
