@@ -10,7 +10,10 @@ import org.lantern.HttpURLClient;
 import org.lantern.JsonUtils;
 
 public class Loggly extends HttpURLClient {
-    private static final String URL = "https://logs-01.loggly.com/inputs/469973d5-6eaf-445a-be71-cf27141316a1/tag/http-client/";
+    public static final String LOGGLY_HOST = "logs-01.loggly.com";
+    private static final String URL = String
+            .format("https://%1$s/inputs/469973d5-6eaf-445a-be71-cf27141316a1/tag/http-client/",
+                    LOGGLY_HOST);
 
     private final boolean inTestMode;
     private final ConcurrentHashMap<String, LogglyMessage> messageCounts = new ConcurrentHashMap<String, LogglyMessage>();
