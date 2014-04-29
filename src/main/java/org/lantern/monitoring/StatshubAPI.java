@@ -94,7 +94,8 @@ public class StatshubAPI extends HttpURLClient {
         HttpURLConnection conn = null;
         OutputStream out = null;
         try {
-            conn = newConn(urlFor(id));
+            String url = urlFor(id);
+            conn = newConn(url);
             conn.setRequestMethod("POST");
             conn.setDoOutput(true);
             conn.setRequestProperty("Content-Type", "application/json");
@@ -103,7 +104,7 @@ public class StatshubAPI extends HttpURLClient {
             int code = conn.getResponseCode();
             if (code != 200) {
                 // will be logged below
-                throw new Exception("Got " + code + " response:\n"
+                throw new Exception("Got " + code + " response for " + url + ":\n"
                         + conn.getResponseMessage());
             }
         } finally {
@@ -118,14 +119,15 @@ public class StatshubAPI extends HttpURLClient {
         HttpURLConnection conn = null;
         InputStream in = null;
         try {
-            conn = newConn(urlFor(dimension + "/"));
+            String url = urlFor(dimension + "/");
+            conn = newConn(url);
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Content-Type", "application/json");
             in = conn.getInputStream();
             int code = conn.getResponseCode();
             if (code != 200) {
                 // will be logged below
-                throw new IOException("Got " + code + " response:\n"
+                throw new IOException("Got " + code + " response for " + url + ":\n"
                         + conn.getResponseMessage());
             }
             return JsonUtils.decode(in, StatsResponse.class);
