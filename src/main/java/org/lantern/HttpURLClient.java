@@ -37,7 +37,9 @@ public abstract class HttpURLClient {
                 .openConnection(proxy == null ? Proxy.NO_PROXY : proxy);
         conn.setConnectTimeout(50000);
         conn.setReadTimeout(120000);
-        if (conn instanceof HttpsURLConnection) {
+        boolean useCustomSslContext = sslContext != null;
+        boolean isSSL = conn instanceof HttpsURLConnection;
+        if (isSSL && useCustomSslContext) {
             HttpsURLConnection httpsConn = (HttpsURLConnection) conn;
             httpsConn.setSSLSocketFactory(sslContext.getSocketFactory());
         }
