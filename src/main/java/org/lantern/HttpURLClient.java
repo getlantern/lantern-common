@@ -6,14 +6,18 @@ import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.URL;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+
 /**
  * Base class for users of HttpURLConnetion that may use a proxy.
  */
 public abstract class HttpURLClient {
     private final Proxy proxy;
+    private volatile SSLContext sslContext;
 
     protected HttpURLClient() {
-        proxy = null;
+        this(null);
     }
 
     protected HttpURLClient(InetSocketAddress proxyAddress) {
@@ -24,11 +28,19 @@ public abstract class HttpURLClient {
         }
     }
 
+    public void setSslContext(SSLContext sslContext) {
+        this.sslContext = sslContext;
+    }
+
     protected HttpURLConnection newConn(String url) throws IOException {
         final HttpURLConnection conn = (HttpURLConnection) new URL(url)
                 .openConnection(proxy == null ? Proxy.NO_PROXY : proxy);
         conn.setConnectTimeout(50000);
         conn.setReadTimeout(120000);
+        if (conn instanceof HttpsURLConnection) {
+            HttpsURLConnection httpsConn = (HttpsURLConnection) conn;
+            httpsConn.setSSLSocketFactory(sslContext.getSocketFactory());
+        }
         return conn;
     }
 }
