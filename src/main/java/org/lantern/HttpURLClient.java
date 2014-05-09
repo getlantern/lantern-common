@@ -8,6 +8,7 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
 
 /**
  * Base class for users of HttpURLConnetion that may use a proxy.
@@ -41,7 +42,9 @@ public abstract class HttpURLClient {
         boolean isSSL = conn instanceof HttpsURLConnection;
         if (isSSL && useCustomSslContext) {
             HttpsURLConnection httpsConn = (HttpsURLConnection) conn;
-            httpsConn.setSSLSocketFactory(sslContext.getSocketFactory());
+            SSLSocketFactory sf =
+                    new NoSSLv2SocketFactory(sslContext.getSocketFactory());
+            httpsConn.setSSLSocketFactory(sf);
         }
         return conn;
     }
