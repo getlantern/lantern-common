@@ -15,7 +15,7 @@ import javax.net.ssl.SSLSocketFactory;
  */
 public abstract class HttpURLClient {
     private final Proxy proxy;
-    private volatile SSLContext sslContext;
+    private volatile SSLContextSource sslContextSource;
 
     protected HttpURLClient() {
         this(null);
@@ -29,8 +29,8 @@ public abstract class HttpURLClient {
         }
     }
 
-    public void setSslContext(SSLContext sslContext) {
-        this.sslContext = sslContext;
+    public void setSslContextSource(SSLContextSource sslContextSource) {
+        this.sslContextSource = sslContextSource;
     }
 
     protected HttpURLConnection newConn(String url) throws IOException {
@@ -38,14 +38,19 @@ public abstract class HttpURLClient {
                 .openConnection(proxy == null ? Proxy.NO_PROXY : proxy);
         conn.setConnectTimeout(50000);
         conn.setReadTimeout(120000);
-        boolean useCustomSslContext = sslContext != null;
+        boolean useCustomSslContext = sslContextSource != null;
         boolean isSSL = conn instanceof HttpsURLConnection;
         if (isSSL && useCustomSslContext) {
+            SSLContext sslContext = sslContextSource.getContext(url);
             HttpsURLConnection httpsConn = (HttpsURLConnection) conn;
             SSLSocketFactory sf =
                     new NoSSLv2SocketFactory(sslContext.getSocketFactory());
             httpsConn.setSSLSocketFactory(sf);
         }
         return conn;
+    }
+
+    public interface SSLContextSource {
+        SSLContext getContext(String url);
     }
 }
