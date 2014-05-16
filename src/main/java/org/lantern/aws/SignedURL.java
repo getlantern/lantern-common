@@ -31,10 +31,10 @@ public class SignedURL {
     private final String baseUrl;
     private final String resource;
     private String queryString;
-    private final int expirationInSecondsSinceEpoch;
+    private final long expirationInSecondsSinceEpoch;
 
     public SignedURL(String accessKeyId, String secretAccessKey,
-            String baseUrl, String resource, int expirationInSecondsSinceEpoch) {
+            String baseUrl, String resource, long expirationInSecondsSinceEpoch) {
         super();
         this.accessKeyId = accessKeyId;
         this.secretAccessKey = secretAccessKey;
@@ -105,7 +105,7 @@ public class SignedURL {
         String resource = "/oxtoacart/Lantern.dmg";
         long expiresAt = System.currentTimeMillis() + 10 * 365 * 24 * 60 * 60
                 * 1000;
-        int expirationInSecondsSinceEpoch = Math.round(expiresAt / 1000);
+        long expirationInSecondsSinceEpoch = Math.round(expiresAt / 1000);
         String queryString = "response-content-disposition=attachment; filename=lantern2632534543.exe";
 
         SignedURL url = new SignedURL(accessKeyId, secretAccessKey, baseUrl,
