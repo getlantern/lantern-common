@@ -7,6 +7,8 @@ import java.util.Map;
  * Generic representation of statistics.
  */
 public class Stats {
+    public static final String UNKNOWN_COUNTRY = "xx";
+    
     public static enum Counters {
         requestsGiven,
         bytesGiven,
@@ -17,6 +19,7 @@ public class Stats {
         requestsGotten,
         bytesGotten,
         directBytes,
+        usersInvited
     };
 
     public static enum Gauges {
