@@ -42,7 +42,8 @@ public class StatshubAPI extends HttpURLClient {
             boolean isFallback,
             Stats stats)
             throws Exception {
-        postStats("instance_" + instanceId, userGuid, countryCode, isFallback, stats);
+        postStats("instance_" + instanceId, userGuid, countryCode, isFallback,
+                stats, null);
     }
 
     /**
@@ -58,7 +59,7 @@ public class StatshubAPI extends HttpURLClient {
             String countryCode,
             Stats stats)
             throws Exception {
-        postStats("user_" + userGuid, userGuid, countryCode, false, stats);
+        postStats("user_" + userGuid, userGuid, countryCode, false, stats, null);
     }
 
     /**
@@ -66,20 +67,30 @@ public class StatshubAPI extends HttpURLClient {
      * 
      * @param id
      *            the stat id (instanceId or userId)
-     * @param dims
-     *            the dimensions to post with the stats
+     * @param userGuid
+     *            the userId (if applicable)
+     * @param countryCode
+     *            the countryCode
+     * @param addFallbackDim
+     *            if true, the id will be added to the dims as "fallback"
      * @param stats
      *            the stats
+     * @param dims
+     *            additional dimensions to post with the stats
      */
-    private void postStats(
+    public void postStats(
             String id,
             String userGuid,
             String countryCode,
             boolean addFallbackDim,
-            Stats stats)
+            Stats stats,
+            Map<String, String> additionalDims)
             throws Exception {
         Map<String, Object> request = new HashMap<String, Object>();
         Map<String, String> dims = new HashMap<String, String>();
+        if (additionalDims != null) {
+            dims.putAll(additionalDims);
+        }
         dims.put("user", userGuid);
         dims.put("country", countryCode);
         if (addFallbackDim) {
@@ -104,7 +115,8 @@ public class StatshubAPI extends HttpURLClient {
             int code = conn.getResponseCode();
             if (code != 200) {
                 // will be logged below
-                throw new Exception("Got " + code + " response for " + url + ":\n"
+                throw new Exception("Got " + code + " response for " + url
+                        + ":\n"
                         + conn.getResponseMessage());
             }
         } finally {
@@ -127,7 +139,8 @@ public class StatshubAPI extends HttpURLClient {
             int code = conn.getResponseCode();
             if (code != 200) {
                 // will be logged below
-                throw new IOException("Got " + code + " response for " + url + ":\n"
+                throw new IOException("Got " + code + " response for " + url
+                        + ":\n"
                         + conn.getResponseMessage());
             }
             return JsonUtils.decode(in, StatsResponse.class);

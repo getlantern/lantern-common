@@ -19,7 +19,8 @@ public class Stats {
         requestsGotten,
         bytesGotten,
         directBytes,
-        usersInvited
+        usersInvited,
+        requestsToHost,
     };
 
     public static enum Gauges {
