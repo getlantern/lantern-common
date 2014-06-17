@@ -8,7 +8,6 @@ import java.util.Properties;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.lantern.proxy.pt.PtType;
 import org.littleshoot.util.FiveTuple;
 import org.littleshoot.util.FiveTuple.Protocol;
 
