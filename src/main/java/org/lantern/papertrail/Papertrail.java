@@ -2,11 +2,12 @@ package org.lantern.papertrail;
 
 import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
+import java.net.Socket;
 
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
-public class Papertrail {
+public abstract class Papertrail {
     /**
      * Constant to be used in trimming log messages to hard limit of 8 kilobytes
      * as specified in the Papertrail support documentation.
@@ -23,23 +24,36 @@ public class Papertrail {
         this.port = port;
     }
 
+    protected abstract Socket newPlainTextSocket() throws Exception;
+
     public void log(String message) {
         try {
-            BufferedWriter writer = getWriter();
-            writer.write(truncate(message));
-            writer.flush();
-        } catch (Exception e) {
-            System.err.println("Unable to write message to Papertrail: "
-                    + e.getMessage());
-            e.printStackTrace(System.err);
+            tryToLog(message);
+        } catch (Exception ee) {
+            try {
+                writer.close();
+                socket.close();
+                tryToLog(message);
+            } catch (Exception e) {
+                System.err.println("Unable to log message to Papertrail: "
+                        + e.getMessage());
+                e.printStackTrace(System.err);
+            }
         }
+    }
+
+    private void tryToLog(String message) throws Exception {
+        BufferedWriter writer = getWriter();
+        writer.write(truncate(message));
+        writer.flush();
     }
 
     private synchronized BufferedWriter getWriter() throws Exception {
         if (this.socket == null || this.socket.isClosed()) {
             SSLSocketFactory socketFactory = (SSLSocketFactory) SSLSocketFactory
                     .getDefault();
-            this.socket = (SSLSocket) socketFactory.createSocket(host, port);
+            this.socket = (SSLSocket) socketFactory.createSocket(
+                    newPlainTextSocket(), host, port, true);
             this.socket.startHandshake();
             this.writer = new BufferedWriter(new OutputStreamWriter(
                     socket.getOutputStream()));
