@@ -7,6 +7,8 @@ import java.net.Socket;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
+import org.apache.commons.io.IOUtils;
+
 public abstract class Papertrail {
     /**
      * Constant to be used in trimming log messages to hard limit of 8 kilobytes
@@ -31,8 +33,10 @@ public abstract class Papertrail {
             tryToLog(message);
         } catch (Exception ee) {
             try {
-                writer.close();
-                socket.close();
+                IOUtils.closeQuietly(writer);
+                IOUtils.closeQuietly(socket);
+                writer = null;
+                socket = null;
                 tryToLog(message);
             } catch (Exception e) {
                 System.err.println("Unable to log message to Papertrail: "
