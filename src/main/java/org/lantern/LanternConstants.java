@@ -138,12 +138,6 @@ public class LanternConstants {
     public static final int KSCOPE_ADVERTISEMENT = 0x2111;
     public static final String KSCOPE_ADVERTISEMENT_KEY = "ksak";
 
-    public static final String AWS_REGION = "ap-southeast-1";
-    public static final String S3_ENDPOINT
-        =  "s3-" + AWS_REGION + ".amazonaws.com";
-    public static final String S3_CONFIG_BASE_URL
-                               = "https://" + S3_ENDPOINT + "/lantern-config/";
-
     public static final Charset UTF8 = Charset.forName("UTF8");
 
     static {
