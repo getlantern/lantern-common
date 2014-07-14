@@ -1,5 +1,7 @@
 package org.lantern;
 
+import java.net.URI;
+
 import org.apache.commons.lang3.StringUtils;
 
 
@@ -21,5 +23,10 @@ public class LanternXmppUtils {
             throws EmailAddressUtils.NormalizationException {
         return EmailAddressUtils.normalizedEmail(
                 StringUtils.substringBefore(jid, "/"));
+    }
+    
+    public static String jidToEmail(final URI jid)
+            throws EmailAddressUtils.NormalizationException {
+        return jidToEmail(jid.toASCIIString());
     }
 }
