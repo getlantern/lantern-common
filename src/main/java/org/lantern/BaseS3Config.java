@@ -10,7 +10,11 @@ import org.lantern.proxy.FallbackProxy;
 public class BaseS3Config {
 
     public static final String DEFAULT_CONTROLLER_ID = "lanternctrl1-2";
-    public static final String DEFAULT_MASQUERADE_HOST = "cdnjs.com";
+    public static final String[] DEFAULT_MASQUERADE_HOSTS = new String[] {
+            "elance.com",
+            "ojooo.com",
+            "news.ycombinator.com",
+    };
 
     private String controller = DEFAULT_CONTROLLER_ID;
     private int minpoll = 5;
@@ -33,7 +37,7 @@ public class BaseS3Config {
      */
     private int statsPostInterval = 5 * 60;
 
-    private String masqueradeHost = DEFAULT_MASQUERADE_HOST;
+    private String[] masqueradeHosts = DEFAULT_MASQUERADE_HOSTS;
 
     public BaseS3Config() {
     }
@@ -94,12 +98,12 @@ public class BaseS3Config {
         this.signalingRetryTime = signalingRetryTime;
     }
 
-    public String getMasqueradeHost() {
-        return masqueradeHost;
+    public String[] getMasqueradeHosts() {
+        return masqueradeHosts;
     }
 
-    public void setMasqueradeHost(String masqueradeHost) {
-        this.masqueradeHost = masqueradeHost;
+    public void setMasqueradeHosts(String[] masqueradeHosts) {
+        this.masqueradeHosts = masqueradeHosts;
     }
 
     @Override
