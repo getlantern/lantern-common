@@ -150,6 +150,9 @@ public class ProxyInfo {
             return null;
         } else {
             try {
+                // This is dangerous because it will resolve domain names, 
+                // which will of course break for any blocked names or DNS
+                // poisoned names.
                 InetAddress host = InetAddress.getByName(wanHost);
                 // We've seen this in weird cases in the field -- might as well
                 // program defensively here.

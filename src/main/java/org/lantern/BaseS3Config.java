@@ -38,6 +38,8 @@ public class BaseS3Config {
     private int statsPostInterval = 5 * 60;
 
     private String[] masqueradeHosts = DEFAULT_MASQUERADE_HOSTS;
+    
+    private String dnsRegUrl = "cloudflare-peerdnsreg.herokuapp.com";
 
     public BaseS3Config() {
     }
@@ -106,6 +108,14 @@ public class BaseS3Config {
         this.masqueradeHosts = masqueradeHosts;
     }
 
+    public String getDnsRegUrl() {
+        return dnsRegUrl;
+    }
+
+    public void setDnsRegUrl(String dnsRegUrl) {
+        this.dnsRegUrl = dnsRegUrl;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -163,5 +173,4 @@ public class BaseS3Config {
                 + ", statsGetInterval=" + statsGetInterval
                 + ", statsPostInterval=" + statsPostInterval + "]";
     }
-
 }
