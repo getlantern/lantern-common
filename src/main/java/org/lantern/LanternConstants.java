@@ -137,6 +137,8 @@ public class LanternConstants {
 
     public static final int KSCOPE_ADVERTISEMENT = 0x2111;
     public static final String KSCOPE_ADVERTISEMENT_KEY = "ksak";
+    
+    public static final String AWS_REGION = "ap-southeast-1";
 
     public static final Charset UTF8 = Charset.forName("UTF8");
 
