@@ -47,7 +47,7 @@ public class BaseS3Config {
 
     private String dnsRegUrl = "cloudflare-peerdnsreg.herokuapp.com";
 
-    private String flashlightCheckerUrl = "http://flashlight-checker.herokuapp.com/";
+    private String flashlightCheckerUrl = "https://flashlight-checker.herokuapp.com";
     
     /**
      * Note that DEFAULT_HOSTS_TO_CERTS is populated in the constructor of 
@@ -130,20 +130,20 @@ public class BaseS3Config {
         this.dnsRegUrl = dnsRegUrl;
     }
     
-    public String getFlashlightCheckerUrl() {
-        return flashlightCheckerUrl;
-    }
-    
-    public void setFlashlightCheckerUrl(String flashlightCheckerUrl) {
-        this.flashlightCheckerUrl = flashlightCheckerUrl;
-    }
-
     public String[] getMasqueradeHosts() {
         return masqueradeHosts;
     }
 
     public void setMasqueradeHosts(String[] masqueradeHosts) {
         this.masqueradeHosts = masqueradeHosts;
+    }
+
+    public String getFlashlightCheckerUrl() {
+        return flashlightCheckerUrl;
+    }
+
+    public void setFlashlightCheckerUrl(String flashlightCheckerUrl) {
+        this.flashlightCheckerUrl = flashlightCheckerUrl;
     }
 
     @Override
