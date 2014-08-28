@@ -13,7 +13,7 @@ public class BaseS3Config {
 
     public static final String DEFAULT_CONTROLLER_ID = "lanternctrl1-2";
     
-    public static final String DEFAULT_FLASHLIGHT_CLOUD_CONFIG = "https://s3.amazonaws.com/lantern_config/cloud.yaml";
+    public static final String DEFAULT_FLASHLIGHT_CLOUDCONFIG = "https://s3.amazonaws.com/lantern_config/cloud.yaml";
     
     public static final String[] DEFAULT_MASQUERADE_HOSTS = new String[] {
             "elance.com",
@@ -55,7 +55,7 @@ public class BaseS3Config {
      */
     private Map<String, String> masqueradeHostsToCerts = DEFAULT_HOSTS_TO_CERTS;
     
-    private String flashlightCloudConfig = DEFAULT_FLASHLIGHT_CLOUD_CONFIG;
+    private String flashlightCloudConfig = DEFAULT_FLASHLIGHT_CLOUDCONFIG;
 
     public BaseS3Config() {
     }
