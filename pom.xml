@@ -10,13 +10,6 @@
   </description>
 
   <url>https://github.com/getlantern/lantern-common</url>
-  <licenses>
-  <license>
-    <name>The GNU General Public License Version 3 (or later)</name>
-    <url>http://www.gnu.org/licenses/gpl.html</url>
-    <distribution>repo</distribution>
-  </license>
-  </licenses>
 
   <parent>
     <groupId>org.sonatype.oss</groupId>
