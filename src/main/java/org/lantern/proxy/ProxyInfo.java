@@ -78,40 +78,47 @@ public class ProxyInfo {
     /**
      * Configuration for pluggable transport
      */
-    protected Properties pt;
+    protected final Properties pt;
     
-    private int priority = 0;
+    private final int priority;
 
     public ProxyInfo() {
+        this(null);
     }
 
     public ProxyInfo(URI jid) {
-        this.jid = jid;
+        this(jid, null, 0);
     }
 
     public ProxyInfo(URI jid, String wanHost, int wanPort) {
-        this(jid);
-        this.wanHost = wanHost;
-        this.wanPort = wanPort;
+        this(jid, null, wanHost, wanPort, null, 0, null, false, null, null, null,
+                null, 0);
     }
 
     public ProxyInfo(URI jid, PeerType type, String wanHost, int wanPort,
             String lanHost, int lanPort, InetSocketAddress boundFrom,
             boolean useLanAddress, Protocol protocol, String authToken,
-            String cert, Properties pt) {
+            String cert, Properties pt, int priority) {
         super();
         this.jid = jid;
-        this.type = type;
+        if (type != null) {
+            // Only set type if supplied, else keep default
+            this.type = type;
+        }
         this.wanHost = wanHost;
         this.wanPort = wanPort;
         this.lanHost = lanHost;
         this.lanPort = lanPort;
         this.boundFrom = boundFrom;
         this.useLanAddress = useLanAddress;
-        this.protocol = protocol;
+        if (protocol != null) {
+            // Only set protocol if supplied, else keep default
+            this.protocol = protocol;
+        }
         this.authToken = authToken;
         this.cert = cert;
         this.pt = pt;
+        this.priority = priority;
     }
 
     /**
@@ -121,7 +128,7 @@ public class ProxyInfo {
      */
     public ProxyInfo onLan() {
         return new ProxyInfo(jid, type, wanHost, wanPort, lanHost, lanPort,
-                boundFrom, true, protocol, authToken, cert, pt);
+                boundFrom, true, protocol, authToken, cert, pt, priority);
     }
 
     public URI getJid() {
@@ -259,10 +266,6 @@ public class ProxyInfo {
         return pt;
     }
     
-    public void setPt(Properties pt) {
-        this.pt = pt;
-    }
-    
     public PtType getPtType() {
         if (pt == null) {
             return null;
@@ -289,10 +292,6 @@ public class ProxyInfo {
      */
     public int getPriority() {
         return priority;
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
     }
 
     @Override

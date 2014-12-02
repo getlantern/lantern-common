@@ -1,7 +1,9 @@
 package org.lantern.proxy;
 
+import java.net.InetSocketAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Properties;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.lantern.BaseS3Config;
@@ -14,16 +16,36 @@ import org.littleshoot.util.FiveTuple.Protocol;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FallbackProxy extends ProxyInfo {
+    
+    private static final URI JID;
 
-    public FallbackProxy() {
-        // We set the type here because the JSON in the S3 config file doesn't
-        // include anything about the type. Fallbacks are always "cloud".
-        this.type = PeerType.cloud;
+    // We hard code the type here because the JSON in the S3 config file doesn't
+    // include anything about the type. Fallbacks are always "cloud".
+    private static final PeerType TYPE = PeerType.cloud;
+    
+    static {
         try {
-            this.jid = new URI("fallback@getlantern.org");
+            JID = new URI("fallback@getlantern.org");
         } catch (URISyntaxException use) {
             throw new RuntimeException(use);
         }
+    }
+
+    public FallbackProxy() {
+        this(JID, 0, null, null, 0);
+    }
+
+    public FallbackProxy(URI jid, int wanPort, Protocol protocol, Properties pt, int priority) {
+        this(jid, TYPE, null, wanPort, null, 0, null, false, protocol, null, null, pt, priority);
+    }
+    
+    public FallbackProxy(URI jid, PeerType type, String wanHost, int wanPort,
+            String lanHost, int lanPort, InetSocketAddress boundFrom,
+            boolean useLanAddress, Protocol protocol, String authToken,
+            String cert, Properties pt, int priority) {
+        super(jid, type, wanHost, wanPort, lanHost, lanPort, boundFrom,
+                useLanAddress,
+                protocol, authToken, cert, pt, priority);
     }
 
     public void setIp(String ip) {
