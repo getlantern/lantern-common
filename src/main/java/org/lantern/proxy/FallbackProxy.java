@@ -23,6 +23,11 @@ public class FallbackProxy extends ProxyInfo {
     // include anything about the type. Fallbacks are always "cloud".
     private static final PeerType TYPE = PeerType.cloud;
     
+    /**
+    * The default relative weight for fallbacks.
+    */
+    private static final int WEIGHT = 1000;
+    
     static {
         try {
             JID = new URI("fallback@getlantern.org");
@@ -32,20 +37,21 @@ public class FallbackProxy extends ProxyInfo {
     }
 
     public FallbackProxy() {
-        this(JID, 0, null, null, 0);
+        this(JID, 0, null, null, 0, WEIGHT);
     }
 
-    public FallbackProxy(URI jid, int wanPort, Protocol protocol, Properties pt, int priority) {
-        this(jid, TYPE, null, wanPort, null, 0, null, false, protocol, null, null, pt, priority);
+    public FallbackProxy(URI jid, int wanPort, Protocol protocol, Properties pt, 
+            int priority, int weight) {
+        this(jid, TYPE, null, wanPort, null, 0, null, false, protocol, null, null, pt, priority, weight);
     }
     
     public FallbackProxy(URI jid, PeerType type, String wanHost, int wanPort,
             String lanHost, int lanPort, InetSocketAddress boundFrom,
             boolean useLanAddress, Protocol protocol, String authToken,
-            String cert, Properties pt, int priority) {
+            String cert, Properties pt, int priority, int weight) {
         super(jid, type, wanHost, wanPort, lanHost, lanPort, boundFrom,
                 useLanAddress,
-                protocol, authToken, cert, pt, priority);
+                protocol, authToken, cert, pt, priority, weight);
     }
 
     public void setIp(String ip) {

@@ -81,24 +81,28 @@ public class ProxyInfo {
     protected final Properties pt;
     
     private final int priority;
+    
+    private int weight;
+    
+    private static final int DEFAULT_WEIGHT = 1000;
 
     public ProxyInfo() {
-        this(null);
+        this(null, DEFAULT_WEIGHT);
     }
 
-    public ProxyInfo(URI jid) {
-        this(jid, null, 0);
+    public ProxyInfo(URI jid, final int weight) {
+        this(jid, null, 0, weight);
     }
 
-    public ProxyInfo(URI jid, String wanHost, int wanPort) {
+    public ProxyInfo(URI jid, String wanHost, int wanPort, final int weight) {
         this(jid, null, wanHost, wanPort, null, 0, null, false, null, null, null,
-                null, 0);
+                null, 0, weight);
     }
 
     public ProxyInfo(URI jid, PeerType type, String wanHost, int wanPort,
             String lanHost, int lanPort, InetSocketAddress boundFrom,
             boolean useLanAddress, Protocol protocol, String authToken,
-            String cert, Properties pt, int priority) {
+            String cert, Properties pt, int priority, int weight) {
         super();
         this.jid = jid;
         if (type != null) {
@@ -119,6 +123,7 @@ public class ProxyInfo {
         this.cert = cert;
         this.pt = pt;
         this.priority = priority;
+        this.weight = weight;
     }
 
     /**
@@ -128,7 +133,7 @@ public class ProxyInfo {
      */
     public ProxyInfo onLan() {
         return new ProxyInfo(jid, type, wanHost, wanPort, lanHost, lanPort,
-                boundFrom, true, protocol, authToken, cert, pt, priority);
+                boundFrom, true, protocol, authToken, cert, pt, priority, weight);
     }
 
     public URI getJid() {
@@ -384,6 +389,14 @@ public class ProxyInfo {
                 + ", boundFrom=" + boundFrom + ", protocol=" + protocol
                 + ", authToken=" + authToken + ", cert=" + cert
                 + ", pt=" + pt + "]";
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
 }
