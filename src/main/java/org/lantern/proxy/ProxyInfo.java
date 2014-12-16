@@ -84,7 +84,7 @@ public class ProxyInfo {
     
     private int weight;
     
-    private static final int DEFAULT_WEIGHT = 1000;
+    private static final int DEFAULT_WEIGHT = 0;
 
     public ProxyInfo() {
         this(null, DEFAULT_WEIGHT);
@@ -299,6 +299,20 @@ public class ProxyInfo {
         return priority;
     }
 
+    /**
+     * Accessor for the relative weight of this proxies. Weights are only
+     * meaningful in relation to other proxy weights.
+     * 
+     * @return The weight for this proxy.
+     */
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -390,13 +404,4 @@ public class ProxyInfo {
                 + ", authToken=" + authToken + ", cert=" + cert
                 + ", pt=" + pt + "]";
     }
-
-    public int getWeight() {
-        return weight;
-    }
-
-    public void setWeight(int weight) {
-        this.weight = weight;
-    }
-
 }
