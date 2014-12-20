@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.lantern.JsonUtils;
 
@@ -116,8 +117,10 @@ public class LogglyMessage {
     public String getKey() {
         if (locationInfo != null) {
             return locationInfo;
-        } else {
+        } else if (StringUtils.isNotBlank(throwableOrigin)){
             return throwableOrigin;
+        } else {
+            return fullMessage;
         }
     }
 
