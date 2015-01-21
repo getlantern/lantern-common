@@ -49,7 +49,7 @@ public class BaseS3Config {
     
     private String[] masqueradeHosts = DEFAULT_MASQUERADE_HOSTS;
 
-    private String dnsRegUrl = "cloudflare-peerdnsreg.herokuapp.com";
+    private String dnsRegUrl = "peerscanner.getiantem.org";
 
     /**
      * Note that DEFAULT_HOSTS_TO_CERTS is populated in the constructor of 
